@@ -3,14 +3,17 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Users/Giorgi.Beridze/AndroidStudioProjects/MovieApp/app/src/main/res/drawable/ic_delete.xml" value="0.1" />
         <entry key="..\:/Users/Giorgi.Beridze/AndroidStudioProjects/MovieApp/app/src/main/res/drawable/ic_favourite.xml" value="0.1415" />
+        <entry key="..\:/Users/Giorgi.Beridze/AndroidStudioProjects/MovieApp/app/src/main/res/drawable/ic_launcher_background.xml" value="0.1" />
         <entry key="..\:/Users/Giorgi.Beridze/AndroidStudioProjects/MovieApp/app/src/main/res/drawable/movie_details_info_background.xml" value="0.136" />
         <entry key="..\:/Users/Giorgi.Beridze/AndroidStudioProjects/MovieApp/app/src/main/res/drawable/rating_text_view_background.xml" value="0.1415" />
+        <entry key="..\:/Users/Giorgi.Beridze/AndroidStudioProjects/MovieApp/app/src/main/res/drawable/view_round_background.xml" value="0.1" />
         <entry key="..\:/Users/Giorgi.Beridze/AndroidStudioProjects/MovieApp/app/src/main/res/layout-v26/fragment_movie_details.xml" value="0.22282608695652173" />
         <entry key="..\:/Users/Giorgi.Beridze/AndroidStudioProjects/MovieApp/app/src/main/res/layout-v28/fragment_movies_collection.xml" value="0.2210144927536232" />
         <entry key="..\:/Users/Giorgi.Beridze/AndroidStudioProjects/MovieApp/app/src/main/res/layout/activity_main.xml" value="0.2210144927536232" />
-        <entry key="..\:/Users/Giorgi.Beridze/AndroidStudioProjects/MovieApp/app/src/main/res/layout/fragment_movie_details.xml" value="0.2210144927536232" />
-        <entry key="..\:/Users/Giorgi.Beridze/AndroidStudioProjects/MovieApp/app/src/main/res/layout/fragment_movies_collection.xml" value="0.2210144927536232" />
+        <entry key="..\:/Users/Giorgi.Beridze/AndroidStudioProjects/MovieApp/app/src/main/res/layout/fragment_movie_details.xml" value="0.1" />
+        <entry key="..\:/Users/Giorgi.Beridze/AndroidStudioProjects/MovieApp/app/src/main/res/layout/fragment_movies_collection.xml" value="0.1" />
         <entry key="..\:/Users/Giorgi.Beridze/AndroidStudioProjects/MovieApp/app/src/main/res/layout/fragment_splash.xml" value="0.1" />
       </map>
     </option>

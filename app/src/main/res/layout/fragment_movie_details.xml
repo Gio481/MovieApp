@@ -9,7 +9,7 @@
     <androidx.appcompat.widget.AppCompatImageView
         android:id="@+id/moviePosterImageView"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/view_dynamic_size"
+        android:layout_height="@dimen/dimen_0_dp"
         android:scaleType="centerCrop"
         android:src="@drawable/splash_background"
         app:layout_constraintHeight_percent="0.5"
@@ -18,7 +18,7 @@
     <View
         android:id="@+id/movieDetailsInfoView"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/view_dynamic_size"
+        android:layout_height="@dimen/dimen_0_dp"
         android:background="@drawable/movie_details_info_background"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintHeight_percent="0.6" />
@@ -27,9 +27,9 @@
         android:id="@+id/titleTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_margin="@dimen/title_text_view_margin"
+        android:layout_margin="@dimen/dimen_30_dp"
         android:textColor="@color/black"
-        android:textSize="@dimen/title_text_view_size"
+        android:textSize="@dimen/dimen_30_sp"
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@id/movieDetailsInfoView" />
@@ -38,8 +38,8 @@
         android:id="@+id/originalTitleTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_margin="@dimen/secondary_text_view_margin"
-        android:textSize="@dimen/secondary_text_view_size"
+        android:layout_margin="@dimen/dimen_15_dp"
+        android:textSize="@dimen/dimen_20_sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/titleTextView" />
 
@@ -47,8 +47,8 @@
         android:id="@+id/releaseDateTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_margin="@dimen/secondary_text_view_margin"
-        android:textSize="@dimen/secondary_text_view_size"
+        android:layout_margin="@dimen/dimen_15_dp"
+        android:textSize="@dimen/dimen_20_sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/originalTitleTextView" />
 
@@ -57,7 +57,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:backgroundTint="@color/white"
-        app:fabCustomSize="@dimen/floating_button_size"
+        app:fabCustomSize="@dimen/dimen_70_dp"
         app:layout_constraintBottom_toTopOf="@id/titleTextView"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -67,25 +67,25 @@
     <androidx.appcompat.widget.AppCompatTextView
         android:id="@+id/overviewTextView"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/view_dynamic_size"
-        android:layout_marginVertical="@dimen/movie_overview_margin_vertical"
+        android:layout_height="@dimen/dimen_0_dp"
+        android:layout_marginVertical="@dimen/dimen_20_dp"
         android:autoSizeTextType="uniform"
         android:gravity="center"
-        android:paddingHorizontal="@dimen/overview_text_view_padding_horizontal"
-        android:textSize="@dimen/secondary_text_view_size"
+        android:paddingHorizontal="@dimen/dimen_20_dp"
+        android:textSize="@dimen/dimen_20_sp"
         app:layout_constraintBottom_toTopOf="@id/ratingTextView"
         app:layout_constraintTop_toBottomOf="@id/releaseDateTextView"
         tools:targetApi="o" />
 
     <androidx.appcompat.widget.AppCompatTextView
         android:id="@+id/ratingTextView"
-        android:layout_width="@dimen/rating_text_view_sizes"
-        android:layout_height="@dimen/rating_text_view_sizes"
-        android:layout_margin="@dimen/rating_text_view_margin"
+        android:layout_width="@dimen/dimen_70_dp"
+        android:layout_height="@dimen/dimen_70_dp"
+        android:layout_margin="@dimen/dimen_30_dp"
         android:background="@drawable/view_round_background"
         android:gravity="center"
         android:textColor="@color/black"
-        android:textSize="@dimen/secondary_text_view_size"
+        android:textSize="@dimen/dimen_20_sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
 
