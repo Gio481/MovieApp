@@ -1,6 +1,6 @@
 package com.example.movieapp.di
 
-import com.example.movieapp.data.datasource.remote.ApiService
+import com.example.movieapp.data.datasource.remote.MoviesApiService
 import com.example.movieapp.data.datasource.remote.interceptor.NetworkInterceptor
 import com.example.movieapp.data.datasource.remote.interceptor.QueryInterceptor
 import okhttp3.OkHttpClient
@@ -10,8 +10,8 @@ import retrofit2.converter.gson.GsonConverterFactory
 
 private const val BASE_URL = "https://api.themoviedb.org/3/"
 
-private fun provideUserApi(retrofit: Retrofit): ApiService {
-    return retrofit.create(ApiService::class.java)
+private fun provideUserApi(retrofit: Retrofit): MoviesApiService {
+    return retrofit.create(MoviesApiService::class.java)
 }
 
 private fun provideGsonConvertorFactory(): GsonConverterFactory = GsonConverterFactory.create()

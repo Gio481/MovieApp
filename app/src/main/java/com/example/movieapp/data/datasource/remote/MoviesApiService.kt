@@ -5,7 +5,7 @@ import retrofit2.Response
 import retrofit2.http.GET
 import retrofit2.http.Query
 
-interface ApiService {
+interface MoviesApiService {
     @GET("movie/top_rated")
     suspend fun getTopRatedMoves(
         @Query("page") page:Int

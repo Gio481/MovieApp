@@ -2,7 +2,7 @@ package com.example.movieapp.data.datasource.remote.dto
 
 import com.google.gson.annotations.SerializedName
 
-data class ResultDTO(
+data class MoviesDTO(
     val adult: Boolean,
     val backdrop_path: String,
     @SerializedName("genre_ids")
