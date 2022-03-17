@@ -1,6 +1,5 @@
 package com.example.movieapp.data.datasource.local.dao
 
-import androidx.room.Delete
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
@@ -13,6 +12,6 @@ interface MoviesDao {
     @Query("SELECT * FROM movies")
     suspend fun getAllMovies(): List<MoviesEntity>
 
-    @Delete
-    suspend fun deleteMovie(movie: MoviesEntity)
+    @Query("DELETE FROM movies WHERE id=:id")
+    suspend fun deleteMovie(id: Long)
 }
