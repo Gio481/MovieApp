@@ -1,0 +1,31 @@
+package com.example.movieapp.data.mapper
+
+import com.example.movieapp.data.datasource.local.entity.MoviesEntity
+import com.example.movieapp.data.datasource.remote.dto.MoviesResponseDTO
+import com.example.movieapp.domain.model.FavouriteMoviesDomain
+import com.example.movieapp.domain.model.MoviesDomain
+
+class DataMapperClass :
+    DataMapper<MoviesResponseDTO, List<MoviesDomain>, MoviesEntity, FavouriteMoviesDomain> {
+
+    override fun moviesDomain(dto: MoviesResponseDTO): List<MoviesDomain> {
+        return dto.results.map {
+            MoviesDomain(
+                title = it.title,
+                posterPath = it.posterPath,
+                originalTitle = it.originalTitle,
+                overview = it.overview,
+                rating = it.voteAverage,
+                releaseDate = it.releaseDate
+            )
+        }
+    }
+
+    override fun fromEntity(entity: MoviesEntity): FavouriteMoviesDomain {
+        return FavouriteMoviesDomain(id = entity.id, poster = entity.poster)
+    }
+
+    override fun toEntity(favoriteMoviesDomain: FavouriteMoviesDomain): MoviesEntity {
+        return MoviesEntity(id = favoriteMoviesDomain.id, poster = favoriteMoviesDomain.poster)
+    }
+}
