@@ -21,8 +21,10 @@ class DataMapperClass :
         }
     }
 
-    override fun fromEntity(entity: MoviesEntity): FavouriteMoviesDomain {
-        return FavouriteMoviesDomain(id = entity.id, poster = entity.poster)
+    override fun fromEntity(entity: List<MoviesEntity>): List<FavouriteMoviesDomain> {
+        return entity.map {
+            FavouriteMoviesDomain(id = it.id, poster = it.poster)
+        }
     }
 
     override fun toEntity(favoriteMoviesDomain: FavouriteMoviesDomain): MoviesEntity {
