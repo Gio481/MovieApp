@@ -10,4 +10,7 @@
     <dimen name="dimen_200_dp">200dp</dimen>
     <dimen name="dimen_50_dp">50dp</dimen>
     <dimen name="dimen_2_dp">2dp</dimen>
+    <dimen name="dimen_100_dp">100dp</dimen>
+    <dimen name="dimen_150_dp">150dp</dimen>
+    <dimen name="dimen_10_dp">10dp</dimen>
 </resources>
