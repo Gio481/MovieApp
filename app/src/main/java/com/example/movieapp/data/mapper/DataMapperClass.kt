@@ -11,6 +11,7 @@ class DataMapperClass :
     override fun moviesDomain(dto: MoviesResponseDTO): List<MoviesDomain> {
         return dto.results.map {
             MoviesDomain(
+                id = it.id,
                 title = it.title,
                 posterPath = it.posterPath,
                 originalTitle = it.originalTitle,
