@@ -23,6 +23,7 @@
             android:layout_height="wrap_content"
             android:backgroundTint="@color/white"
             android:buttonTint="@color/white"
+            android:checked="true"
             android:text="@string/top_rated_movie"
             android:textColor="@color/white" />
 
