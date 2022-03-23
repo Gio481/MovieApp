@@ -31,7 +31,7 @@ class FavouriteMoviesAdapter :
             with(binding) {
                 moviePosterImageView.setImage(movies.poster)
                 releaseDateTextView.text = movies.releaseDate
-                ratingTextView.text = movies.rating()
+                ratingTextView.text = movies.rating.toString()
             }
         }
     }

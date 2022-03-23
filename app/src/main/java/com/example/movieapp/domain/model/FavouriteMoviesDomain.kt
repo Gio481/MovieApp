@@ -5,8 +5,4 @@ data class FavouriteMoviesDomain(
     val poster: String,
     val releaseDate: String,
     val rating: Double
-) {
-    fun rating(): String {
-        return rating.toString()
-    }
-}
+)
