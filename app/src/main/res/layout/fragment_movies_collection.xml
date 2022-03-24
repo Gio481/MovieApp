@@ -45,9 +45,10 @@
     </RadioGroup>
 
     <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/moviesRecyclerView"
         android:layout_width="match_parent"
         android:layout_height="@dimen/dimen_0_dp"
-        android:layout_margin="@dimen/dimen_20_dp"
+        android:layout_marginVertical="@dimen/dimen_20_dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintTop_toBottomOf="@id/movieStateRadioGroup" />
 
