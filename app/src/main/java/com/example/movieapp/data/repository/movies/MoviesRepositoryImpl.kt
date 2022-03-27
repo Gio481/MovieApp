@@ -1,30 +1,29 @@
 package com.example.movieapp.data.repository.movies
 
-import androidx.lifecycle.LiveData
 import androidx.paging.Pager
 import androidx.paging.PagingConfig
 import androidx.paging.PagingData
-import androidx.paging.liveData
 import com.example.movieapp.data.datasource.local.dao.MoviesDao
 import com.example.movieapp.data.datasource.remote.MoviesApiService
-import com.example.movieapp.data.mapper.DataMapperClass
+import com.example.movieapp.data.mapper.DataMapperImpl
 import com.example.movieapp.domain.model.FavouriteMoviesDomain
 import com.example.movieapp.domain.model.MoviesDomain
 import com.example.movieapp.domain.repository.movies.MoviesRepository
-import com.example.movieapp.presentation.ui.movies_collection.adapter.movies.paging_source.PopularMoviesPagingSource
-import com.example.movieapp.presentation.ui.movies_collection.adapter.movies.paging_source.TopRatedMoviesPagingSource
+import com.example.movieapp.data.datasource.paging_source.PopularMoviesPagingSource
+import com.example.movieapp.data.datasource.paging_source.TopRatedMoviesPagingSource
 import com.example.movieapp.util.Resources
+import kotlinx.coroutines.flow.Flow
 
 class MoviesRepositoryImpl(
     private val moviesApi: MoviesApiService,
     private val moviesDao: MoviesDao,
-    private val dataMapper: DataMapperClass
+    private val dataMapper: DataMapperImpl
 ) : MoviesRepository {
 
     override suspend fun getTopRatedMovies(
         page: Int,
         pagingConfig: PagingConfig
-    ): Resources<LiveData<PagingData<MoviesDomain>>> {
+    ): Resources<Flow<PagingData<MoviesDomain>>> {
         return try {
             val response = moviesApi.getTopRatedMoves(page)
             if (response.isSuccessful) {
@@ -37,7 +36,7 @@ class MoviesRepositoryImpl(
                                 dataMapper = dataMapper
                             )
                         }
-                    ).liveData
+                    ).flow
                 )
             } else {
                 Resources.Error(response.message())
@@ -50,7 +49,7 @@ class MoviesRepositoryImpl(
     override suspend fun getPopularMovies(
         page: Int,
         pagingConfig: PagingConfig
-    ): Resources<LiveData<PagingData<MoviesDomain>>> {
+    ): Resources<Flow<PagingData<MoviesDomain>>> {
         return try {
             val response = moviesApi.getPopularMovies(page)
             if (response.isSuccessful) {
@@ -63,7 +62,7 @@ class MoviesRepositoryImpl(
                                 dataMapper = dataMapper
                             )
                         }
-                    ).liveData
+                    ).flow
                 )
             } else {
                 Resources.Error(response.message())

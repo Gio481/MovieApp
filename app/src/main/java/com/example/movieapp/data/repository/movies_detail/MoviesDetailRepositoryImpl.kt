@@ -1,13 +1,13 @@
 package com.example.movieapp.data.repository.movies_detail
 
 import com.example.movieapp.data.datasource.local.dao.MoviesDao
-import com.example.movieapp.data.mapper.DataMapperClass
+import com.example.movieapp.data.mapper.DataMapperImpl
 import com.example.movieapp.domain.model.FavouriteMoviesDomain
 import com.example.movieapp.domain.repository.movies_detail.MoviesDetailRepository
 
 class MoviesDetailRepositoryImpl(
     private val moviesDao: MoviesDao,
-    private val dataMapper: DataMapperClass
+    private val dataMapper: DataMapperImpl
 ) : MoviesDetailRepository {
 
     override suspend fun insertMovie(movie: FavouriteMoviesDomain) {

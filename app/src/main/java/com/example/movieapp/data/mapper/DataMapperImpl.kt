@@ -5,10 +5,10 @@ import com.example.movieapp.data.datasource.remote.dto.MoviesResponseDTO
 import com.example.movieapp.domain.model.FavouriteMoviesDomain
 import com.example.movieapp.domain.model.MoviesDomain
 
-class DataMapperClass :
+class DataMapperImpl :
     DataMapper<MoviesResponseDTO, List<MoviesDomain>, MoviesEntity, FavouriteMoviesDomain> {
 
-    override fun moviesDomain(dto: MoviesResponseDTO): List<MoviesDomain> {
+    override fun dtoToDomain(dto: MoviesResponseDTO): List<MoviesDomain> {
         return dto.results.map {
             MoviesDomain(
                 id = it.id,
@@ -33,10 +33,11 @@ class DataMapperClass :
         }
     }
 
+
     override fun toEntity(favoriteMoviesDomain: FavouriteMoviesDomain): MoviesEntity {
         return MoviesEntity(
             id = favoriteMoviesDomain.id,
-            poster = favoriteMoviesDomain.poster,
+            poster = favoriteMoviesDomain.posterUrl,
             releaseDate = favoriteMoviesDomain.releaseDate,
             rating = favoriteMoviesDomain.rating
         )
