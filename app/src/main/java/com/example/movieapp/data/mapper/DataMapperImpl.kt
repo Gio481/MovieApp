@@ -37,7 +37,7 @@ class DataMapperImpl :
     override fun toEntity(favoriteMoviesDomain: FavouriteMoviesDomain): MoviesEntity {
         return MoviesEntity(
             id = favoriteMoviesDomain.id,
-            poster = favoriteMoviesDomain.posterUrl,
+            poster = favoriteMoviesDomain.poster,
             releaseDate = favoriteMoviesDomain.releaseDate,
             rating = favoriteMoviesDomain.rating
         )

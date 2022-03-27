@@ -30,7 +30,7 @@ class FavouriteMoviesAdapter :
         RecyclerView.ViewHolder(binding.root) {
         fun onBind(movies: FavouriteMoviesDomain) {
             with(binding) {
-                moviePosterImageView.setImage(movies.posterUrl)
+                moviePosterImageView.setImage(movies.poster)
                 releaseDateTextView.text = movies.releaseDate
                 ratingTextView.text = movies.rating.toString()
             }

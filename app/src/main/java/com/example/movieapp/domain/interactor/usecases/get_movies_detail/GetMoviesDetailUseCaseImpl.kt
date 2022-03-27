@@ -10,7 +10,7 @@ class GetMoviesDetailUseCaseImpl(private val repository: MoviesDetailRepository)
         repository.insertMovie(favouriteMoviesDomain)
     }
 
-    override suspend fun deleteMovie(movieId: Long) {
+    override suspend fun deleteMovie(movieId: Int) {
         repository.deleteMovie(movieId)
     }
 }

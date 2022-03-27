@@ -1,8 +1,8 @@
 package com.example.movieapp.domain.model
 
 data class FavouriteMoviesDomain(
-    val id: Long,
+    val id: Int,
     val poster: String,
     val releaseDate: String,
-    val rating: Double
+    val rating: Double,
 )

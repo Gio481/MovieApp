@@ -4,4 +4,5 @@
     <string name="top_rated_movie">Top rated</string>
     <string name="popular_movie">Popular</string>
     <string name="favorite_movie">Favorite</string>
+    <string name="release_date">release date: </string>
 </resources>

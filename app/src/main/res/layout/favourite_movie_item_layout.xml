@@ -22,7 +22,7 @@
         android:background="@drawable/favorite_movies_text_view_background"
         android:gravity="start|center"
         android:paddingHorizontal="@dimen/dimen_5_dp"
-        android:textColor="@color/black"
+        android:textColor="@color/white"
         app:layout_constraintBottom_toTopOf="@id/ratingTextView" />
 
     <androidx.appcompat.widget.AppCompatTextView
@@ -32,7 +32,7 @@
         android:background="@drawable/favorite_movies_text_view_background"
         android:gravity="start|center"
         android:paddingHorizontal="@dimen/dimen_5_dp"
-        android:textColor="@color/black"
+        android:textColor="@color/white"
         app:layout_constraintBottom_toBottomOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -4,5 +4,5 @@ import com.example.movieapp.domain.model.FavouriteMoviesDomain
 
 interface GetMoviesDetailUseCase {
     suspend fun insertMovie(favouriteMoviesDomain: FavouriteMoviesDomain)
-    suspend fun deleteMovie(movieId: Long)
+    suspend fun deleteMovie(movieId: Int)
 }

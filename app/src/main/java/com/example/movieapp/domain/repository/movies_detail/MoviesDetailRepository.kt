@@ -4,5 +4,5 @@ import com.example.movieapp.domain.model.FavouriteMoviesDomain
 
 interface MoviesDetailRepository {
     suspend fun insertMovie(movie: FavouriteMoviesDomain)
-    suspend fun deleteMovie(moviesId: Long)
+    suspend fun deleteMovie(moviesId: Int)
 }

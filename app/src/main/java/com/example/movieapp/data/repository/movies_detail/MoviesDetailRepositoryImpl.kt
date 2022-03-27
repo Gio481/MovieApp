@@ -14,5 +14,5 @@ class MoviesDetailRepositoryImpl(
         return moviesDao.insert(dataMapper.toEntity(movie))
     }
 
-    override suspend fun deleteMovie(moviesId: Long) = moviesDao.deleteMovie(moviesId)
+    override suspend fun deleteMovie(moviesId: Int) = moviesDao.deleteMovie(moviesId)
 }

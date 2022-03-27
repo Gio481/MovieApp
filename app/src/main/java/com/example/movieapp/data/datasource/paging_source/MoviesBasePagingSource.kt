@@ -1,12 +1,10 @@
-package com.example.movieapp.presentation.ui.movies_collection.adapter.movies.paging_source
+package com.example.movieapp.data.datasource.paging_source
 
 import androidx.paging.PagingSource
 import androidx.paging.PagingState
-import com.example.movieapp.data.datasource.remote.dto.MoviesResponseDTO
 import com.example.movieapp.domain.model.MoviesDomain
 import com.example.movieapp.util.Constants.MOVIES_PAGE_SIZE
 import com.example.movieapp.util.Constants.STARTING_PAGE_INDEX
-import retrofit2.Response
 
 abstract class MoviesBasePagingSource : PagingSource<Int, MoviesDomain>() {
 
@@ -20,7 +18,7 @@ abstract class MoviesBasePagingSource : PagingSource<Int, MoviesDomain>() {
     override suspend fun load(params: LoadParams<Int>): LoadResult<Int, MoviesDomain> {
         val pageIndex = params.key ?: STARTING_PAGE_INDEX
         return try {
-            val movies = movies(page = pageIndex)
+            val movies = moviesResponse(page = pageIndex)
             val nextKey = if (movies.isEmpty()) {
                 null
             } else {
@@ -36,6 +34,5 @@ abstract class MoviesBasePagingSource : PagingSource<Int, MoviesDomain>() {
         }
     }
 
-    abstract suspend fun moviesResponse(page: Int): Response<MoviesResponseDTO>
-    abstract suspend fun movies(page: Int): List<MoviesDomain>
+    abstract suspend fun moviesResponse(page: Int): List<MoviesDomain>
 }
