@@ -19,10 +19,6 @@ class GetMoviesUseCaseImpl(private val repository: MoviesRepository) : GetMovies
         return repository.getTopRatedMovies(page = STARTING_PAGE_INDEX, pagingConfig())
     }
 
-    override suspend fun getFavouriteMovies(): List<FavouriteMoviesDomain> {
-        return repository.getFavouriteMovies()
-    }
-
     private fun pagingConfig(): PagingConfig {
         return PagingConfig(pageSize = MOVIES_PAGE_SIZE, enablePlaceholders = false)
     }

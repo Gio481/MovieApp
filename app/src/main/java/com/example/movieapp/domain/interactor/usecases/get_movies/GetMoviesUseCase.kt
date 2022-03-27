@@ -9,5 +9,4 @@ import kotlinx.coroutines.flow.Flow
 interface GetMoviesUseCase {
     suspend fun getPopularMovies(): Resources<Flow<PagingData<MoviesDomain>>>
     suspend fun getTopRatedMovies(): Resources<Flow<PagingData<MoviesDomain>>>
-    suspend fun getFavouriteMovies(): List<FavouriteMoviesDomain>
 }

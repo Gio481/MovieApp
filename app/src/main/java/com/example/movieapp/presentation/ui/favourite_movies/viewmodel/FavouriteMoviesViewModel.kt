@@ -4,12 +4,12 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.movieapp.domain.interactor.usecases.get_movies.GetMoviesUseCase
+import com.example.movieapp.domain.interactor.usecases.get_favourite_movies.GetFavouriteMoviesUseCase
 import com.example.movieapp.domain.model.FavouriteMoviesDomain
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
-class FavouriteMoviesViewModel(private val useCase: GetMoviesUseCase) : ViewModel() {
+class FavouriteMoviesViewModel(private val useCase: GetFavouriteMoviesUseCase) : ViewModel() {
 
     private val _favouriteMoviesLiveData: MutableLiveData<List<FavouriteMoviesDomain>> =
         MutableLiveData()

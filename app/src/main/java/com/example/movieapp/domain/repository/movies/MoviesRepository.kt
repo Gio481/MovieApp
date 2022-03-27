@@ -17,6 +17,4 @@ interface MoviesRepository {
         page: Int,
         pagingConfig: PagingConfig,
     ): Resources<Flow<PagingData<MoviesDomain>>>
-
-    suspend fun getFavouriteMovies(): List<FavouriteMoviesDomain>
 }

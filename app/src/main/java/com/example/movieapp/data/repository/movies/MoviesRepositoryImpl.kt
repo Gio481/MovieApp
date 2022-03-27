@@ -3,26 +3,25 @@ package com.example.movieapp.data.repository.movies
 import androidx.paging.Pager
 import androidx.paging.PagingConfig
 import androidx.paging.PagingData
-import com.example.movieapp.data.datasource.local.dao.MoviesDao
-import com.example.movieapp.data.datasource.remote.MoviesApiService
-import com.example.movieapp.data.mapper.DataMapperImpl
-import com.example.movieapp.domain.model.FavouriteMoviesDomain
-import com.example.movieapp.domain.model.MoviesDomain
-import com.example.movieapp.domain.repository.movies.MoviesRepository
 import com.example.movieapp.data.datasource.paging_source.PopularMoviesPagingSource
 import com.example.movieapp.data.datasource.paging_source.TopRatedMoviesPagingSource
+import com.example.movieapp.data.datasource.remote.MoviesApiService
+import com.example.movieapp.data.mapper.DataMapperImpl
+import com.example.movieapp.domain.model.MoviesDomain
+import com.example.movieapp.domain.repository.movies.MoviesRepository
+import com.example.movieapp.presentation.ui.custom_view.CustomProgressBar
 import com.example.movieapp.util.Resources
 import kotlinx.coroutines.flow.Flow
 
 class MoviesRepositoryImpl(
     private val moviesApi: MoviesApiService,
-    private val moviesDao: MoviesDao,
-    private val dataMapper: DataMapperImpl
+    private val dataMapper: DataMapperImpl,
+    private val customProgressBar: CustomProgressBar,
 ) : MoviesRepository {
 
     override suspend fun getTopRatedMovies(
         page: Int,
-        pagingConfig: PagingConfig
+        pagingConfig: PagingConfig,
     ): Resources<Flow<PagingData<MoviesDomain>>> {
         return try {
             val response = moviesApi.getTopRatedMoves(page)
@@ -48,7 +47,7 @@ class MoviesRepositoryImpl(
 
     override suspend fun getPopularMovies(
         page: Int,
-        pagingConfig: PagingConfig
+        pagingConfig: PagingConfig,
     ): Resources<Flow<PagingData<MoviesDomain>>> {
         return try {
             val response = moviesApi.getPopularMovies(page)
@@ -71,9 +70,4 @@ class MoviesRepositoryImpl(
             Resources.Error(e.message!!)
         }
     }
-
-    override suspend fun getFavouriteMovies(): List<FavouriteMoviesDomain> {
-        return dataMapper.fromEntity(moviesDao.getAllMovies())
-    }
-
 }
