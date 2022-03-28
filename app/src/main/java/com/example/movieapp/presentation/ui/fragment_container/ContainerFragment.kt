@@ -17,6 +17,7 @@ class ContainerFragment : BaseFragment<FragmentContainerBinding>() {
         get() = FragmentContainerBinding::inflate
 
     override fun initial() {
+        fragmentTransaction(MoviesFragment(MoviesState.TopRatedMovies))
         determineFragmentTransaction()
     }
 

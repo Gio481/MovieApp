@@ -2,7 +2,6 @@ package com.example.movieapp.domain.interactor.usecases.get_movies
 
 import androidx.paging.PagingConfig
 import androidx.paging.PagingData
-import com.example.movieapp.domain.model.FavouriteMoviesDomain
 import com.example.movieapp.domain.model.MoviesDomain
 import com.example.movieapp.domain.repository.movies.MoviesRepository
 import com.example.movieapp.util.Constants.MOVIES_PAGE_SIZE

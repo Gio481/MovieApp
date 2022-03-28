@@ -2,11 +2,10 @@ package com.example.movieapp.data.mapper
 
 import com.example.movieapp.data.datasource.local.entity.MoviesEntity
 import com.example.movieapp.data.datasource.remote.dto.MoviesResponseDTO
-import com.example.movieapp.domain.model.FavouriteMoviesDomain
 import com.example.movieapp.domain.model.MoviesDomain
 
 class DataMapperImpl :
-    DataMapper<MoviesResponseDTO, List<MoviesDomain>, MoviesEntity, FavouriteMoviesDomain> {
+    DataMapper<MoviesResponseDTO, MoviesDomain, MoviesEntity> {
 
     override fun dtoToDomain(dto: MoviesResponseDTO): List<MoviesDomain> {
         return dto.results.map {
@@ -22,11 +21,11 @@ class DataMapperImpl :
         }
     }
 
-    override fun fromEntity(entity: List<MoviesEntity>): List<FavouriteMoviesDomain> {
+    override fun fromEntity(entity: List<MoviesEntity>): List<MoviesDomain> {
         return entity.map {
-            FavouriteMoviesDomain(
+            MoviesDomain(
                 id = it.id,
-                poster = it.poster,
+                posterPath = it.posterPath,
                 releaseDate = it.releaseDate,
                 rating = it.rating,
                 overview = it.overview,
@@ -36,16 +35,15 @@ class DataMapperImpl :
         }
     }
 
-
-    override fun toEntity(favoriteMoviesDomain: FavouriteMoviesDomain): MoviesEntity {
+    override fun toEntity(favoriteMovie: MoviesDomain): MoviesEntity {
         return MoviesEntity(
-            id = favoriteMoviesDomain.id,
-            poster = favoriteMoviesDomain.poster,
-            releaseDate = favoriteMoviesDomain.releaseDate,
-            rating = favoriteMoviesDomain.rating,
-            title = favoriteMoviesDomain.title,
-            originalTitle = favoriteMoviesDomain.originalTitle,
-            overview = favoriteMoviesDomain.overview
+            id = favoriteMovie.id,
+            posterPath = favoriteMovie.posterPath,
+            releaseDate = favoriteMovie.releaseDate,
+            rating = favoriteMovie.rating,
+            title = favoriteMovie.title,
+            originalTitle = favoriteMovie.originalTitle,
+            overview = favoriteMovie.overview
         )
     }
 }

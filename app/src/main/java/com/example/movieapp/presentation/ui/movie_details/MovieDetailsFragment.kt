@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.lifecycle.lifecycleScope
 import com.example.movieapp.R
 import com.example.movieapp.databinding.FragmentMovieDetailsBinding
 import com.example.movieapp.domain.model.MoviesDomain
@@ -14,14 +15,16 @@ import com.example.movieapp.util.Constants.BUNDLE_KEY_FOR_DETAILS_FRAGMENT
 import com.example.movieapp.util.extensions.image_view.setImage
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
+import kotlinx.coroutines.launch
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 
 class MovieDetailsFragment : BottomSheetDialogFragment() {
+
     private var _binding: FragmentMovieDetailsBinding? = null
     private val binding get() = _binding!!
     private val viewModel: MovieDetailsViewModel by viewModel()
-
+    private lateinit var args: MoviesDomain
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -34,9 +37,18 @@ class MovieDetailsFragment : BottomSheetDialogFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        args = (this.arguments)?.getParcelable(BUNDLE_KEY_FOR_DETAILS_FRAGMENT)!!
+        viewModel.determineBackground(args.id)
         determineBottomSheetFullScreen()
         setUpDetailScreen()
+        observeBackgroundLiveData()
         setListener()
+    }
+
+    private fun observeBackgroundLiveData() {
+        viewModel.backgroundLiveData.observe(viewLifecycleOwner) {
+            binding.makeFavouriteFloatingActionButton.setImageResource(it)
+        }
     }
 
     private fun determineBottomSheetFullScreen() {
@@ -52,7 +64,6 @@ class MovieDetailsFragment : BottomSheetDialogFragment() {
 
     @SuppressLint("SetTextI18n")
     private fun setUpDetailScreen() {
-        val args = (this.arguments)?.getParcelable<MoviesDomain>(BUNDLE_KEY_FOR_DETAILS_FRAGMENT)!!
         with(binding) {
             titleTextView.text = args.title
             originalTitleTextView.text = args.originalTitle
@@ -67,16 +78,19 @@ class MovieDetailsFragment : BottomSheetDialogFragment() {
     private fun setListener() {
         binding.makeFavouriteFloatingActionButton.setOnClickListener {
             determineOperation()
+            lifecycleScope.launch {
+                binding.makeFavouriteFloatingActionButton.setImageResource(
+                    if (viewModel.checkSavedMovieId(args.id)) R.drawable.ic_favourite else R.drawable.ic_delete
+                )
+            }
         }
     }
 
     private fun determineOperation() {
-        val args = (this.arguments)?.getParcelable<MoviesDomain>(BUNDLE_KEY_FOR_DETAILS_FRAGMENT)!!
-        viewModel.insertMovies(
+        viewModel.determineOperation(
             movieId = args.id,
-            poster = args.posterUrl,
-            releaseDate = args.releaseDate,
-            rating = args.rating
+            moviesDomain = args
         )
     }
+
 }

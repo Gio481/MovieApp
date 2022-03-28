@@ -1,7 +1,7 @@
 package com.example.movieapp.data.mapper
 
-interface DataMapper<in DTO, out DOMAIN, ENTITY, ENTITY_DOMAIN> {
-    fun dtoToDomain(dto: DTO): DOMAIN
-    fun fromEntity(entity: List<ENTITY>): List<ENTITY_DOMAIN>
-    fun toEntity(favoriteMoviesDomain: ENTITY_DOMAIN): ENTITY
+interface DataMapper<in DTO, DOMAIN, ENTITY> {
+    fun dtoToDomain(dto: DTO): List<DOMAIN>
+    fun fromEntity(entity: List<ENTITY>): List<DOMAIN>
+    fun toEntity(favoriteMovie: DOMAIN): ENTITY
 }
