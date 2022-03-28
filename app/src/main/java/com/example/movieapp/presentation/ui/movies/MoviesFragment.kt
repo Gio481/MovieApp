@@ -19,7 +19,6 @@ import com.example.movieapp.util.Constants.BUNDLE_KEY_FOR_DETAILS_FRAGMENT
 import com.example.movieapp.util.extensions.fragment.showToast
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
-import org.koin.android.ext.android.inject
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class MoviesFragment(private val moviesState: MoviesState) :
