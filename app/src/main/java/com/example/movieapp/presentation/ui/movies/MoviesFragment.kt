@@ -9,7 +9,7 @@ import androidx.recyclerview.widget.GridLayoutManager
 import com.example.movieapp.R
 import com.example.movieapp.databinding.FragmentMoviesBinding
 import com.example.movieapp.domain.model.MoviesDomain
-import com.example.movieapp.presentation.base.BaseFragment
+import com.example.movieapp.presentation.base.BaseMoviesFragment
 import com.example.movieapp.presentation.ui.movie_details.MovieDetailsFragment
 import com.example.movieapp.presentation.ui.movies.adapter.MoviesAdapter
 import com.example.movieapp.presentation.ui.movies.adapter.OnItemClickListener
@@ -22,7 +22,8 @@ import kotlinx.coroutines.launch
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class MoviesFragment(private val moviesState: MoviesState) :
-    BaseFragment<FragmentMoviesBinding, MoviesViewModel>(), OnItemClickListener<MoviesDomain> {
+    BaseMoviesFragment<FragmentMoviesBinding, MoviesViewModel>(),
+    OnItemClickListener<MoviesDomain> {
 
     override val bindingInflater: (inflater: LayoutInflater, container: ViewGroup?, attachToRoot: Boolean) -> FragmentMoviesBinding
         get() = FragmentMoviesBinding::inflate
@@ -37,17 +38,17 @@ class MoviesFragment(private val moviesState: MoviesState) :
         detailsBottomSheet.setStyle(DialogFragment.STYLE_NORMAL, R.style.BottomSheetTheme)
         setUpRecyclerView()
         determineMoviesState(viewModel)
-        observeMoviesLiveData()
-        observeErrorLiveData()
+        observeMoviesLiveData(viewModel)
+        observeErrorLiveData(viewModel)
     }
 
-    private fun observeErrorLiveData() {
+    private fun observeErrorLiveData(viewModel: MoviesViewModel) {
         viewModel.errorLiveData.observe(viewLifecycleOwner) {
             showToast(it)
         }
     }
 
-    private fun observeMoviesLiveData() {
+    private fun observeMoviesLiveData(viewModel: MoviesViewModel) {
         viewModel.moviesLiveData.observe(viewLifecycleOwner) { flow ->
             lifecycleScope.launch {
                 flow.collectLatest {
