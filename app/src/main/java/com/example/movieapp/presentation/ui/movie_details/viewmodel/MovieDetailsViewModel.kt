@@ -12,8 +12,8 @@ import kotlinx.coroutines.launch
 
 class MovieDetailsViewModel(private val useCase: GetMoviesDetailUseCase) : ViewModel() {
 
-    private val _backgroundLiveData: MutableLiveData<Int> = MutableLiveData()
-    val backgroundLiveData: LiveData<Int> get() = _backgroundLiveData
+    private val _actionButtonBackgroundLiveData: MutableLiveData<Int> = MutableLiveData()
+    val actionButtonBackgroundLiveData: LiveData<Int> get() = _actionButtonBackgroundLiveData
 
     suspend fun checkSavedMovieId(movieId: Int): Boolean = movieId in useCase.getAllMoviesID()
 
@@ -45,9 +45,9 @@ class MovieDetailsViewModel(private val useCase: GetMoviesDetailUseCase) : ViewM
     fun determineBackground(movieId: Int) {
         viewModelScope.launch {
             if (checkSavedMovieId(movieId)) {
-                _backgroundLiveData.postValue(R.drawable.ic_delete)
+                _actionButtonBackgroundLiveData.postValue(R.drawable.ic_delete)
             } else {
-                _backgroundLiveData.postValue(R.drawable.ic_favourite)
+                _actionButtonBackgroundLiveData.postValue(R.drawable.ic_favourite)
             }
         }
     }

@@ -41,12 +41,12 @@ class MovieDetailsFragment : BottomSheetDialogFragment() {
         viewModel.determineBackground(args.id)
         determineBottomSheetFullScreen()
         setUpDetailScreen()
-        observeBackgroundLiveData()
+        observeActionButtonBackgroundLiveData()
         setListener()
     }
 
-    private fun observeBackgroundLiveData() {
-        viewModel.backgroundLiveData.observe(viewLifecycleOwner) {
+    private fun observeActionButtonBackgroundLiveData() {
+        viewModel.actionButtonBackgroundLiveData.observe(viewLifecycleOwner) {
             binding.makeFavouriteFloatingActionButton.setImageResource(it)
         }
     }
