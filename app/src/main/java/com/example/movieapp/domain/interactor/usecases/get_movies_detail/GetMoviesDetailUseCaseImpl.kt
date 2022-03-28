@@ -6,6 +6,10 @@ import com.example.movieapp.domain.repository.movies_detail.MoviesDetailReposito
 class GetMoviesDetailUseCaseImpl(private val repository: MoviesDetailRepository) :
     GetMoviesDetailUseCase {
 
+    override suspend fun getAllMoviesID(): List<Int> {
+        return repository.getAllMoviesID()
+    }
+
     override suspend fun insertMovie(favouriteMoviesDomain: FavouriteMoviesDomain) {
         repository.insertMovie(favouriteMoviesDomain)
     }

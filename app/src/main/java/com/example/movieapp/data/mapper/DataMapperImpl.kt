@@ -28,7 +28,10 @@ class DataMapperImpl :
                 id = it.id,
                 poster = it.poster,
                 releaseDate = it.releaseDate,
-                rating = it.rating
+                rating = it.rating,
+                overview = it.overview,
+                title = it.title,
+                originalTitle = it.originalTitle
             )
         }
     }
@@ -39,7 +42,10 @@ class DataMapperImpl :
             id = favoriteMoviesDomain.id,
             poster = favoriteMoviesDomain.poster,
             releaseDate = favoriteMoviesDomain.releaseDate,
-            rating = favoriteMoviesDomain.rating
+            rating = favoriteMoviesDomain.rating,
+            title = favoriteMoviesDomain.title,
+            originalTitle = favoriteMoviesDomain.originalTitle,
+            overview = favoriteMoviesDomain.overview
         )
     }
 }

@@ -8,5 +8,8 @@ data class MoviesEntity(
     @PrimaryKey(autoGenerate = false) val id: Int,
     val poster: String,
     val releaseDate: String,
-    val rating: Double
+    val rating: Double,
+    val originalTitle: String,
+    val overview: String,
+    val title: String,
 )

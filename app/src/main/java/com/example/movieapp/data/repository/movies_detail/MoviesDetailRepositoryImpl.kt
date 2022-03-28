@@ -7,8 +7,12 @@ import com.example.movieapp.domain.repository.movies_detail.MoviesDetailReposito
 
 class MoviesDetailRepositoryImpl(
     private val moviesDao: MoviesDao,
-    private val dataMapper: DataMapperImpl
+    private val dataMapper: DataMapperImpl,
 ) : MoviesDetailRepository {
+
+    override suspend fun getAllMoviesID(): List<Int> {
+        return moviesDao.getAllMoviesID()
+    }
 
     override suspend fun insertMovie(movie: FavouriteMoviesDomain) {
         return moviesDao.insert(dataMapper.toEntity(movie))
