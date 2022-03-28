@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/purple_700"
-    tools:context=".presentation.ui.movies_collection.MoviesCollectionFragment">
+    tools:context=".presentation.ui.fragment_container.ContainerFragment">
 
     <RadioGroup
         android:id="@+id/movieStateRadioGroup"
@@ -45,8 +45,8 @@
             android:textColor="@color/white" />
     </RadioGroup>
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/moviesRecyclerView"
+    <androidx.fragment.app.FragmentContainerView
+        android:id="@+id/fragmentContainerView"
         android:layout_width="match_parent"
         android:layout_height="@dimen/dimen_0_dp"
         android:layout_marginVertical="@dimen/dimen_20_dp"
