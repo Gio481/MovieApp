@@ -42,7 +42,7 @@ class MovieDetailsViewModel(private val useCase: GetMoviesDetailUseCase) : ViewM
         }
     }
 
-    fun determineBackground(movieId: Int) {
+    fun determineActionButtonBackground(movieId: Int) {
         viewModelScope.launch {
             if (checkSavedMovieId(movieId)) {
                 _actionButtonBackgroundLiveData.postValue(R.drawable.ic_delete)

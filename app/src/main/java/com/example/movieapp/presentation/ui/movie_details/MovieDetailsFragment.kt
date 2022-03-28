@@ -38,7 +38,7 @@ class MovieDetailsFragment : BottomSheetDialogFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         args = (this.arguments)?.getParcelable(BUNDLE_KEY_FOR_DETAILS_FRAGMENT)!!
-        viewModel.determineBackground(args.id)
+        viewModel.determineActionButtonBackground(args.id)
         determineBottomSheetFullScreen()
         setUpDetailScreen()
         observeActionButtonBackgroundLiveData()
