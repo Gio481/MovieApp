@@ -9,14 +9,12 @@ import com.example.movieapp.data.datasource.remote.MoviesApiService
 import com.example.movieapp.data.mapper.DataMapperImpl
 import com.example.movieapp.domain.model.MoviesDomain
 import com.example.movieapp.domain.repository.movies.MoviesRepository
-import com.example.movieapp.presentation.ui.custom_view.CustomProgressBar
 import com.example.movieapp.util.Resources
 import kotlinx.coroutines.flow.Flow
 
 class MoviesRepositoryImpl(
     private val moviesApi: MoviesApiService,
     private val dataMapper: DataMapperImpl,
-    private val customProgressBar: CustomProgressBar,
 ) : MoviesRepository {
 
     override suspend fun getTopRatedMovies(
