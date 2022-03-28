@@ -11,7 +11,7 @@ import org.koin.dsl.module
 
 val repositoryModule = module {
     single { DataMapperImpl() }
-    single<MoviesRepository> { MoviesRepositoryImpl(get(), get(), get()) }
+    single<MoviesRepository> { MoviesRepositoryImpl(get(), get()) }
     single<MoviesDetailRepository> { MoviesDetailRepositoryImpl(get(), get()) }
     single<FavouriteMoviesRepository> { FavouriteMoviesRepositoryImpl(get(), get()) }
 }

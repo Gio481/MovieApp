@@ -17,7 +17,7 @@ private fun provideUserApi(retrofit: Retrofit): MoviesApiService {
 private fun provideGsonConvertorFactory(): GsonConverterFactory = GsonConverterFactory.create()
 
 private fun provideHttpClient(): OkHttpClient {
-    return OkHttpClient.Builder().addInterceptor(NetworkInterceptor())
+    return OkHttpClient.Builder()
         .addInterceptor(QueryInterceptor()).build()
 }
 
