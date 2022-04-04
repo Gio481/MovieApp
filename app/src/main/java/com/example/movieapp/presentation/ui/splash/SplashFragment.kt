@@ -2,21 +2,23 @@ package com.example.movieapp.presentation.ui.splash
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import com.example.movieapp.R
 import com.example.movieapp.databinding.FragmentSplashBinding
 import com.example.movieapp.presentation.base.BaseFragment
-import kotlinx.coroutines.delay
-import kotlinx.coroutines.launch
+import com.example.movieapp.presentation.ui.splash.viewmodel.SplashViewModel
+import kotlin.reflect.KClass
 
-class SplashFragment : BaseFragment<FragmentSplashBinding>() {
+class SplashFragment : BaseFragment<FragmentSplashBinding, SplashViewModel>() {
+
     override val bindingInflater: (inflater: LayoutInflater, container: ViewGroup?, attachToRoot: Boolean) -> FragmentSplashBinding
         get() = FragmentSplashBinding::inflate
 
-    override fun initial() {
-        lifecycleScope.launch {
-            delay(1000)
+    override fun getViewModelClass(): KClass<SplashViewModel> = SplashViewModel::class
+
+
+    override fun onBindViewModel(viewModel: SplashViewModel) {
+        viewModel.splash {
             findNavController().navigate(R.id.action_splashFragment_to_moviesCollectionFragment)
         }
     }
