@@ -4,8 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/purple_700"
-    tools:context=".presentation.ui.fragment_container.ContainerFragment">
+    android:background="@color/color_dark_blue"
+    tools:context=".presentation.ui.movies_collection.MoviesCollectionFragment">
 
     <RadioGroup
         android:id="@+id/movieStateRadioGroup"
@@ -23,7 +23,6 @@
             android:layout_height="wrap_content"
             android:backgroundTint="@color/white"
             android:buttonTint="@color/white"
-            android:checked="true"
             android:text="@string/top_rated_movie"
             android:textColor="@color/white" />
 
@@ -45,12 +44,29 @@
             android:textColor="@color/white" />
     </RadioGroup>
 
-    <androidx.fragment.app.FragmentContainerView
-        android:id="@+id/fragmentContainerView"
+    <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+        android:id="@+id/moviesRefreshLayout"
         android:layout_width="match_parent"
         android:layout_height="@dimen/dimen_0_dp"
-        android:layout_marginVertical="@dimen/dimen_20_dp"
+        android:layout_marginTop="@dimen/dimen_20_dp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/movieStateRadioGroup" />
+        app:layout_constraintTop_toBottomOf="@id/movieStateRadioGroup">
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/moviesRecyclerView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+
+    </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
+
+    <ProgressBar
+        android:id="@+id/progressBar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
