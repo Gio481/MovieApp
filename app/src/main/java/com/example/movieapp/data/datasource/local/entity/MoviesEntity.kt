@@ -5,8 +5,12 @@ import androidx.room.PrimaryKey
 
 @Entity(tableName = "movies")
 data class MoviesEntity(
-    @PrimaryKey(autoGenerate = false) val id: Long,
-    val poster: String,
+    @PrimaryKey(autoGenerate = false) val id: Int,
+    val posterPath: String,
+    val posterUrl:String= "https://image.tmdb.org/t/p/w185$posterPath",
     val releaseDate: String,
-    val rating: Double
+    val rating: Double,
+    val originalTitle: String,
+    val overview: String,
+    val title: String,
 )

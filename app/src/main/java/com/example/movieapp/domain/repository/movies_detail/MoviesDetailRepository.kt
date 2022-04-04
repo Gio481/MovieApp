@@ -1,8 +1,9 @@
 package com.example.movieapp.domain.repository.movies_detail
 
-import com.example.movieapp.domain.model.FavouriteMoviesDomain
+import com.example.movieapp.domain.model.MoviesDomain
 
 interface MoviesDetailRepository {
-    suspend fun insertMovie(movie: FavouriteMoviesDomain)
-    suspend fun deleteMovie(moviesId: Long)
+    suspend fun getAllMoviesID(): List<String>
+    suspend fun insertMovie(movie: MoviesDomain)
+    suspend fun deleteMovie(posterPath: String)
 }

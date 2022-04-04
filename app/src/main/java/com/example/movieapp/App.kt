@@ -1,10 +1,7 @@
 package com.example.movieapp
 
 import android.app.Application
-import com.example.movieapp.di.databaseModule
-import com.example.movieapp.di.networkModule
-import com.example.movieapp.di.repositoryModule
-import com.example.movieapp.di.useCaseModule
+import com.example.movieapp.di.*
 import org.koin.android.ext.koin.androidContext
 import org.koin.core.context.startKoin
 
@@ -18,7 +15,8 @@ class App : Application() {
                     networkModule,
                     databaseModule,
                     repositoryModule,
-                    useCaseModule
+                    useCaseModule,
+                    viewModelModule,
                 )
             )
         }

@@ -1,7 +1,6 @@
 package com.example.movieapp.di
 
 import com.example.movieapp.data.datasource.remote.MoviesApiService
-import com.example.movieapp.data.datasource.remote.interceptor.NetworkInterceptor
 import com.example.movieapp.data.datasource.remote.interceptor.QueryInterceptor
 import okhttp3.OkHttpClient
 import org.koin.dsl.module
@@ -17,7 +16,7 @@ private fun provideUserApi(retrofit: Retrofit): MoviesApiService {
 private fun provideGsonConvertorFactory(): GsonConverterFactory = GsonConverterFactory.create()
 
 private fun provideHttpClient(): OkHttpClient {
-    return OkHttpClient.Builder().addInterceptor(NetworkInterceptor())
+    return OkHttpClient.Builder()
         .addInterceptor(QueryInterceptor()).build()
 }
 
