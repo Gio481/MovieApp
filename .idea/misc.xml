@@ -3,26 +3,39 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Users/Giorgi.Beridze/AndroidStudioProjects/MovieApp/app/src/main/res/drawable-v24/ic_launcher_foreground.xml" value="0.1" />
+        <entry key="..\:/Users/Giorgi.Beridze/AndroidStudioProjects/MovieApp/app/src/main/res/drawable/custom_dialog_background.xml" value="0.1" />
         <entry key="..\:/Users/Giorgi.Beridze/AndroidStudioProjects/MovieApp/app/src/main/res/drawable/favorite_movies_text_view_background.xml" value="0.152" />
         <entry key="..\:/Users/Giorgi.Beridze/AndroidStudioProjects/MovieApp/app/src/main/res/drawable/ic_delete.xml" value="0.1" />
+        <entry key="..\:/Users/Giorgi.Beridze/AndroidStudioProjects/MovieApp/app/src/main/res/drawable/ic_error.xml" value="0.1" />
         <entry key="..\:/Users/Giorgi.Beridze/AndroidStudioProjects/MovieApp/app/src/main/res/drawable/ic_favourite.xml" value="0.1415" />
         <entry key="..\:/Users/Giorgi.Beridze/AndroidStudioProjects/MovieApp/app/src/main/res/drawable/ic_launcher_background.xml" value="0.1" />
         <entry key="..\:/Users/Giorgi.Beridze/AndroidStudioProjects/MovieApp/app/src/main/res/drawable/movie_details_info_background.xml" value="0.136" />
         <entry key="..\:/Users/Giorgi.Beridze/AndroidStudioProjects/MovieApp/app/src/main/res/drawable/rating_text_view_background.xml" value="0.1415" />
         <entry key="..\:/Users/Giorgi.Beridze/AndroidStudioProjects/MovieApp/app/src/main/res/drawable/view_round_background.xml" value="0.1" />
+        <entry key="..\:/Users/Giorgi.Beridze/AndroidStudioProjects/MovieApp/app/src/main/res/layout-land/fragment_movie_detail.xml" value="0.1" />
+        <entry key="..\:/Users/Giorgi.Beridze/AndroidStudioProjects/MovieApp/app/src/main/res/layout-land/fragment_movie_details.xml" value="0.1" />
+        <entry key="..\:/Users/Giorgi.Beridze/AndroidStudioProjects/MovieApp/app/src/main/res/layout-land/movie_details_landscape.xml" value="0.2" />
         <entry key="..\:/Users/Giorgi.Beridze/AndroidStudioProjects/MovieApp/app/src/main/res/layout-v26/fragment_movie_details.xml" value="0.22282608695652173" />
         <entry key="..\:/Users/Giorgi.Beridze/AndroidStudioProjects/MovieApp/app/src/main/res/layout-v28/fragment_movies_collection.xml" value="0.2210144927536232" />
         <entry key="..\:/Users/Giorgi.Beridze/AndroidStudioProjects/MovieApp/app/src/main/res/layout/activity_main.xml" value="0.2210144927536232" />
+        <entry key="..\:/Users/Giorgi.Beridze/AndroidStudioProjects/MovieApp/app/src/main/res/layout/custom_dialog.xml" value="0.136" />
         <entry key="..\:/Users/Giorgi.Beridze/AndroidStudioProjects/MovieApp/app/src/main/res/layout/favourite_movie_item_layout.xml" value="0.1" />
         <entry key="..\:/Users/Giorgi.Beridze/AndroidStudioProjects/MovieApp/app/src/main/res/layout/favourite_movies_row_layout.xml" value="0.2" />
+        <entry key="..\:/Users/Giorgi.Beridze/AndroidStudioProjects/MovieApp/app/src/main/res/layout/fragment_blank.xml" value="0.12360688956433637" />
+        <entry key="..\:/Users/Giorgi.Beridze/AndroidStudioProjects/MovieApp/app/src/main/res/layout/fragment_blank2.xml" value="0.12360688956433637" />
         <entry key="..\:/Users/Giorgi.Beridze/AndroidStudioProjects/MovieApp/app/src/main/res/layout/fragment_container.xml" value="0.12360688956433637" />
         <entry key="..\:/Users/Giorgi.Beridze/AndroidStudioProjects/MovieApp/app/src/main/res/layout/fragment_favourite_movies.xml" value="0.12360688956433637" />
+        <entry key="..\:/Users/Giorgi.Beridze/AndroidStudioProjects/MovieApp/app/src/main/res/layout/fragment_movie_detail.xml" value="0.1" />
         <entry key="..\:/Users/Giorgi.Beridze/AndroidStudioProjects/MovieApp/app/src/main/res/layout/fragment_movie_details.xml" value="0.1" />
         <entry key="..\:/Users/Giorgi.Beridze/AndroidStudioProjects/MovieApp/app/src/main/res/layout/fragment_movies.xml" value="0.185121107266436" />
         <entry key="..\:/Users/Giorgi.Beridze/AndroidStudioProjects/MovieApp/app/src/main/res/layout/fragment_movies_collection.xml" value="0.16" />
         <entry key="..\:/Users/Giorgi.Beridze/AndroidStudioProjects/MovieApp/app/src/main/res/layout/fragment_splash.xml" value="0.1" />
-        <entry key="..\:/Users/Giorgi.Beridze/AndroidStudioProjects/MovieApp/app/src/main/res/layout/movie_item_layout.xml" value="0.2341485507246377" />
+        <entry key="..\:/Users/Giorgi.Beridze/AndroidStudioProjects/MovieApp/app/src/main/res/layout/loader_adapert_layout.xml" value="0.1" />
+        <entry key="..\:/Users/Giorgi.Beridze/AndroidStudioProjects/MovieApp/app/src/main/res/layout/loader_adapter_layout.xml" value="0.176" />
+        <entry key="..\:/Users/Giorgi.Beridze/AndroidStudioProjects/MovieApp/app/src/main/res/layout/movie_item_layout.xml" value="0.1" />
         <entry key="..\:/Users/Giorgi.Beridze/AndroidStudioProjects/MovieApp/app/src/main/res/layout/movies_row_layout.xml" value="0.176" />
+        <entry key="..\:/Users/Giorgi.Beridze/AndroidStudioProjects/MovieApp/app/src/main/res/xml/motion_loader.xml" value="0.12360688956433637" />
       </map>
     </option>
   </component>

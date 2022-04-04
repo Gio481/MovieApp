@@ -18,14 +18,7 @@
     </fragment>
     <fragment
         android:id="@+id/moviesCollectionFragment"
-        android:name="com.example.movieapp.presentation.ui.fragment_container.ContainerFragment"
+        android:name="com.example.movieapp.presentation.ui.movies_collection.MoviesCollectionFragment"
         android:label="fragment_movies_collection"
-        tools:layout="@layout/fragment_container">
-
-        <argument
-            android:name="movie"
-            app:argType="string"
-            android:defaultValue="defaultValue"/>
-
-    </fragment>
+        tools:layout="@layout/fragment_movies_collection" />
 </navigation>
