@@ -15,15 +15,15 @@ class MovieDetailsViewModel(private val useCase: GetMoviesDetailUseCase) : ViewM
     private val _actionButtonBackgroundLiveData: MutableLiveData<Int> = MutableLiveData()
     val actionButtonBackgroundLiveData: LiveData<Int> get() = _actionButtonBackgroundLiveData
 
-    suspend fun checkSavedMovieId(movieId: Int): Boolean = movieId in useCase.getAllMoviesID()
+    suspend fun isMovieSaved(posterPath: String): Boolean =
+        posterPath in useCase.getAllMoviesPosterPath()
 
-    fun determineOperation(
-        movieId: Int,
-        moviesDomain: MoviesDomain,
+    fun determineInsertOrDelete(
+        posterPath: String, moviesDomain: MoviesDomain,
     ) {
-        viewModelScope.launch {
-            if (checkSavedMovieId(movieId)) {
-                deleteMovie(movieId)
+        viewModelScope.launch(Dispatchers.IO) {
+            if (isMovieSaved(posterPath)) {
+                deleteMovie(posterPath)
             } else {
                 insertMovies(moviesDomain)
             }
@@ -31,20 +31,16 @@ class MovieDetailsViewModel(private val useCase: GetMoviesDetailUseCase) : ViewM
     }
 
     private suspend fun insertMovies(moviesDomain: MoviesDomain) {
-        viewModelScope.launch(Dispatchers.IO) {
-            useCase.insertMovie(moviesDomain)
-        }
+        useCase.insertMovie(moviesDomain)
     }
 
-    private suspend fun deleteMovie(movieId: Int) {
-        viewModelScope.launch(Dispatchers.IO) {
-            useCase.deleteMovie(movieId)
-        }
+    private suspend fun deleteMovie(posterPath: String) {
+        useCase.deleteMovie(posterPath)
     }
 
-    fun determineActionButtonBackground(movieId: Int) {
+    fun determineActionButtonBackground(posterPath: String) {
         viewModelScope.launch {
-            if (checkSavedMovieId(movieId)) {
+            if (isMovieSaved(posterPath)) {
                 _actionButtonBackgroundLiveData.postValue(R.drawable.ic_delete)
             } else {
                 _actionButtonBackgroundLiveData.postValue(R.drawable.ic_favourite)

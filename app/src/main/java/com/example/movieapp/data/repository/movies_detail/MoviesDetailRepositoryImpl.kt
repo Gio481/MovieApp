@@ -10,7 +10,7 @@ class MoviesDetailRepositoryImpl(
     private val dataMapper: DataMapperImpl,
 ) : MoviesDetailRepository {
 
-    override suspend fun getAllMoviesID(): List<Int> {
+    override suspend fun getAllMoviesID(): List<String> {
         return moviesDao.getAllMoviesID()
     }
 
@@ -18,5 +18,5 @@ class MoviesDetailRepositoryImpl(
         return moviesDao.insert(dataMapper.toEntity(movie))
     }
 
-    override suspend fun deleteMovie(moviesId: Int) = moviesDao.deleteMovie(moviesId)
+    override suspend fun deleteMovie(posterPath: String) = moviesDao.deleteMovie(posterPath)
 }

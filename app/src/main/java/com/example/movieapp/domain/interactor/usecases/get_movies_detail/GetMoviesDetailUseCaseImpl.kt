@@ -6,7 +6,7 @@ import com.example.movieapp.domain.repository.movies_detail.MoviesDetailReposito
 class GetMoviesDetailUseCaseImpl(private val repository: MoviesDetailRepository) :
     GetMoviesDetailUseCase {
 
-    override suspend fun getAllMoviesID(): List<Int> {
+    override suspend fun getAllMoviesPosterPath(): List<String> {
         return repository.getAllMoviesID()
     }
 
@@ -14,7 +14,7 @@ class GetMoviesDetailUseCaseImpl(private val repository: MoviesDetailRepository)
         repository.insertMovie(favouriteMoviesDomain)
     }
 
-    override suspend fun deleteMovie(movieId: Int) {
-        repository.deleteMovie(movieId)
+    override suspend fun deleteMovie(posterPath: String) {
+        repository.deleteMovie(posterPath)
     }
 }
