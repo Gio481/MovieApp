@@ -67,6 +67,7 @@ class MoviesCollectionFragment :
                 is NetworkState.Available -> {
                     if (viewModel.isShownInternetAvailability) {
                         showToast(getString(R.string.restored_internet_text))
+                        moviesAdapter.retry()
                         viewModel.isShownInternetAvailability = false
                     }
                 }
