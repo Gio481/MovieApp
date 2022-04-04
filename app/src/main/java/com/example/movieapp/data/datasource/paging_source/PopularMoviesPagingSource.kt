@@ -1,15 +1,18 @@
 package com.example.movieapp.data.datasource.paging_source
 
 import com.example.movieapp.data.datasource.remote.MoviesApiService
-import com.example.movieapp.data.mapper.DataMapperImpl
-import com.example.movieapp.domain.model.MoviesDomain
+import com.example.movieapp.data.datasource.remote.dto.MoviesDTO
 
 class PopularMoviesPagingSource(
     private val apiService: MoviesApiService,
-    private val dataMapper: DataMapperImpl
 ) : MoviesBasePagingSource() {
 
-    override suspend fun moviesResponse(page: Int): List<MoviesDomain> {
-        return dataMapper.dtoToDomain(apiService.getPopularMovies(page).body()!!)
+    override suspend fun moviesResponse(page: Int): List<MoviesDTO>? {
+        val s = apiService.getPopularMovies(page)
+        return if (s.isSuccessful) {
+            s.body()?.results
+        } else {
+            null
+        }
     }
 }
