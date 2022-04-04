@@ -1,16 +1,15 @@
 package com.example.movieapp.data.repository.movies
 
-import androidx.paging.Pager
-import androidx.paging.PagingConfig
-import androidx.paging.PagingData
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.map
+import androidx.paging.*
 import com.example.movieapp.data.datasource.paging_source.PopularMoviesPagingSource
 import com.example.movieapp.data.datasource.paging_source.TopRatedMoviesPagingSource
 import com.example.movieapp.data.datasource.remote.MoviesApiService
 import com.example.movieapp.data.mapper.DataMapperImpl
 import com.example.movieapp.domain.model.MoviesDomain
 import com.example.movieapp.domain.repository.movies.MoviesRepository
-import com.example.movieapp.util.Resources
-import kotlinx.coroutines.flow.Flow
+import com.example.movieapp.util.Response
 
 class MoviesRepositoryImpl(
     private val moviesApi: MoviesApiService,
@@ -20,52 +19,59 @@ class MoviesRepositoryImpl(
     override suspend fun getTopRatedMovies(
         page: Int,
         pagingConfig: PagingConfig,
-    ): Resources<Flow<PagingData<MoviesDomain>>> {
+    ): Response<LiveData<PagingData<MoviesDomain>>> {
         return try {
             val response = moviesApi.getTopRatedMoves(page)
             if (response.isSuccessful) {
-                Resources.Success(
+                return Response.Success(
                     Pager(
                         config = pagingConfig,
                         pagingSourceFactory = {
                             TopRatedMoviesPagingSource(
                                 apiService = moviesApi,
-                                dataMapper = dataMapper
                             )
                         }
-                    ).flow
+                    ).liveData.map {
+                        it.map { dto ->
+                            dataMapper.dtoToDomain(dto)
+                        }
+                    }
                 )
             } else {
-                Resources.Error(response.message())
+                Response.Error(response.message())
             }
         } catch (e: Exception) {
-            Resources.Error(e.message!!)
+            Response.Error(e.message!!)
         }
     }
+
 
     override suspend fun getPopularMovies(
         page: Int,
         pagingConfig: PagingConfig,
-    ): Resources<Flow<PagingData<MoviesDomain>>> {
+    ): Response<LiveData<PagingData<MoviesDomain>>> {
         return try {
             val response = moviesApi.getPopularMovies(page)
             if (response.isSuccessful) {
-                Resources.Success(
+                Response.Success(
                     Pager(
                         config = pagingConfig,
                         pagingSourceFactory = {
                             PopularMoviesPagingSource(
                                 apiService = moviesApi,
-                                dataMapper = dataMapper
                             )
                         }
-                    ).flow
+                    ).liveData.map {
+                        it.map { dto ->
+                            dataMapper.dtoToDomain(dto)
+                        }
+                    }
                 )
             } else {
-                Resources.Error(response.message())
+                Response.Error(response.message())
             }
         } catch (e: Exception) {
-            Resources.Error(e.message!!)
+            Response.Error(e.message!!)
         }
     }
 }

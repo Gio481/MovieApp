@@ -1,11 +1,12 @@
 package com.example.movieapp.domain.interactor.usecases.get_movies
 
+import androidx.lifecycle.LiveData
+import androidx.paging.PagingConfig
 import androidx.paging.PagingData
 import com.example.movieapp.domain.model.MoviesDomain
-import com.example.movieapp.util.Resources
-import kotlinx.coroutines.flow.Flow
 
 interface GetMoviesUseCase {
-    suspend fun getPopularMovies(): Resources<Flow<PagingData<MoviesDomain>>>
-    suspend fun getTopRatedMovies(): Resources<Flow<PagingData<MoviesDomain>>>
+    suspend fun getPopularMovies(action: (message: String) -> Unit): LiveData<PagingData<MoviesDomain>>?
+    suspend fun getTopRatedMovies(action: (message: String) -> Unit): LiveData<PagingData<MoviesDomain>>?
+    fun pagingConfig(): PagingConfig
 }
