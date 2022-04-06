@@ -1,41 +1,45 @@
 package com.example.movieapp.domain.interactor.usecases.get_movies
 
-import androidx.lifecycle.LiveData
-import androidx.paging.PagingConfig
-import androidx.paging.PagingData
+import android.util.Log.d
 import com.example.movieapp.domain.model.MoviesDomain
 import com.example.movieapp.domain.repository.movies.MoviesRepository
-import com.example.movieapp.util.Constants.MOVIES_PAGE_SIZE
-import com.example.movieapp.util.Constants.STARTING_PAGE_INDEX
-import com.example.movieapp.util.Response
+import com.example.movieapp.util.Resources
 
 class GetMoviesUseCaseImpl(private val repository: MoviesRepository) : GetMoviesUseCase {
 
-    override suspend fun getPopularMovies(action: (message: String) -> Unit): LiveData<PagingData<MoviesDomain>>? {
+    private var popularMoviesPage = 1
+    private val popularMoviesList = mutableListOf<MoviesDomain>()
+
+    override suspend fun getPopularMovies(action: (message: String) -> Unit): MutableList<MoviesDomain>? {
         return when (val response =
-            repository.getPopularMovies(page = STARTING_PAGE_INDEX, pagingConfig())) {
-            is Response.Success -> response.data!!
-            is Response.Error -> {
+            repository.getPopularMovies(popularMoviesPage)) {
+            is Resources.Success -> {
+                popularMoviesPage++
+                popularMoviesList.addAll(response.data!!)
+                popularMoviesList
+            }
+            is Resources.Error -> {
                 action.invoke(response.message)
                 null
             }
         }
     }
 
-    override suspend fun getTopRatedMovies(action: (message: String) -> Unit): LiveData<PagingData<MoviesDomain>>? {
+    private var topRatedPages = 1
+    private val topRatedMoviesList = mutableListOf<MoviesDomain>()
+
+    override suspend fun getTopRatedMovies(action: (message: String) -> Unit): MutableList<MoviesDomain>? {
         return when (val response =
-            repository.getTopRatedMovies(page = STARTING_PAGE_INDEX, pagingConfig())) {
-            is Response.Success -> {
-                response.data!!
+            repository.getTopRatedMovies(topRatedPages)) {
+            is Resources.Success -> {
+                topRatedPages++
+                topRatedMoviesList.addAll(response.data!!)
+                topRatedMoviesList
             }
-            is Response.Error -> {
+            is Resources.Error -> {
                 action.invoke(response.message)
                 null
             }
         }
-    }
-
-    override fun pagingConfig(): PagingConfig {
-        return PagingConfig(pageSize = MOVIES_PAGE_SIZE, enablePlaceholders = false)
     }
 }
