@@ -1,6 +1,5 @@
 package com.example.movieapp.data.datasource.local.dao
 
-import androidx.paging.PagingSource
 import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
@@ -16,7 +15,7 @@ interface MoviesDao {
     suspend fun getAllMoviesID(): List<String>
 
     @Query("SELECT * FROM movies")
-    fun getAllMovies(): PagingSource<Int, MoviesEntity>
+    suspend fun getAllMovies(): List<MoviesEntity>
 
     @Query("DELETE FROM movies WHERE posterPath=:posterPath")
     suspend fun deleteMovie(posterPath: String)
