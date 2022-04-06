@@ -49,7 +49,6 @@ class MoviesCollectionFragment :
     private var internet: Boolean? = null
 
     override fun onBindViewModel(viewModel: MoviesCollectionViewModel) {
-
         if (!viewModel.isFirstChecked) {
             binding.topRatedRadioButton.isChecked = true
             viewModel.isFirstChecked = true
@@ -85,8 +84,7 @@ class MoviesCollectionFragment :
     private fun observeMovies(viewModel: MoviesCollectionViewModel) {
         isProgressBarVisible(true)
         observer(viewModel.moviesLiveData) {
-            moviesAdapter.nextPage(it.toMutableList())
-            d("giorgi", "observe")
+            moviesAdapter.loadData(it.toMutableList())
             isProgressBarVisible(false)
         }
     }

@@ -48,7 +48,7 @@ class MoviesAdapter(private val onItemClickListener: OnItemClickListener) :
         return itemList.size
     }
 
-    fun nextPage(list: MutableList<MoviesDomain>) {
+    fun loadData(list: MutableList<MoviesDomain>) {
         itemList.clear()
         itemList.addAll(list)
         notifyDataSetChanged()

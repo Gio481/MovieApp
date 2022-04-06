@@ -7,7 +7,7 @@ class GetMoviesDetailUseCaseImpl(private val repository: MoviesDetailRepository)
     GetMoviesDetailUseCase {
 
     override suspend fun getAllMoviesPosterPath(): List<String> {
-        return repository.getAllMoviesID()
+        return repository.getAllMoviesPoster()
     }
 
     override suspend fun insertMovie(favouriteMoviesDomain: MoviesDomain) {

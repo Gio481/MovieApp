@@ -12,7 +12,7 @@ interface MoviesDao {
     suspend fun insert(movie: MoviesEntity)
 
     @Query("SELECT posterPath FROM movies")
-    suspend fun getAllMoviesID(): List<String>
+    suspend fun getAllMoviesPoster(): List<String>
 
     @Query("SELECT * FROM movies")
     suspend fun getAllMovies(): List<MoviesEntity>

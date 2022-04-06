@@ -1,6 +1,5 @@
 package com.example.movieapp.domain.interactor.usecases.get_movies
 
-import android.util.Log.d
 import com.example.movieapp.domain.model.MoviesDomain
 import com.example.movieapp.domain.repository.movies.MoviesRepository
 import com.example.movieapp.util.Resources
