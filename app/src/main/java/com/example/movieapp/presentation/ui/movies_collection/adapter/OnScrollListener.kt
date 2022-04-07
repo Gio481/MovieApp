@@ -17,7 +17,8 @@ class OnScrollListener(
         super.onScrolled(recyclerView, dx, dy)
         val lastItem =
             manager.findFirstVisibleItemPosition() + manager.childCount >= manager.itemCount
-        val firstVisibleItemPosition = manager.findFirstVisibleItemPosition() >= 0
+        val firstVisibleItemPosition =
+            manager.findFirstVisibleItemPosition() >= FIRST_VISIBLE_ITEM_POSITION
         val moreThanShowedItems = manager.itemCount >= pageSize
         if (firstVisibleItemPosition && isScrolling && lastItem && moreThanShowedItems) {
             if (dy > 0) {
@@ -32,5 +33,9 @@ class OnScrollListener(
         if (newState == AbsListView.OnScrollListener.SCROLL_STATE_TOUCH_SCROLL) {
             isScrolling = true
         }
+    }
+
+    companion object {
+        private const val FIRST_VISIBLE_ITEM_POSITION = 0
     }
 }
