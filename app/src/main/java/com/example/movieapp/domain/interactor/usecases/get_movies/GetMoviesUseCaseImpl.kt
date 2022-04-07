@@ -6,16 +6,14 @@ import com.example.movieapp.util.Resources
 
 class GetMoviesUseCaseImpl(private val repository: MoviesRepository) : GetMoviesUseCase {
 
-    private var popularMoviesPage = 1
-    private val popularMoviesList = mutableListOf<MoviesDomain>()
-
-    override suspend fun getPopularMovies(action: (message: String) -> Unit): MutableList<MoviesDomain>? {
+    override suspend fun getPopularMovies(
+        page: Int,
+        action: (message: String) -> Unit,
+    ): List<MoviesDomain>? {
         return when (val response =
-            repository.getPopularMovies(popularMoviesPage)) {
+            repository.getPopularMovies(page)) {
             is Resources.Success -> {
-                popularMoviesPage++
-                popularMoviesList.addAll(response.data!!)
-                popularMoviesList
+                response.data
             }
             is Resources.Error -> {
                 action.invoke(response.message)
@@ -24,16 +22,14 @@ class GetMoviesUseCaseImpl(private val repository: MoviesRepository) : GetMovies
         }
     }
 
-    private var topRatedPages = 1
-    private val topRatedMoviesList = mutableListOf<MoviesDomain>()
-
-    override suspend fun getTopRatedMovies(action: (message: String) -> Unit): MutableList<MoviesDomain>? {
+    override suspend fun getTopRatedMovies(
+        page: Int,
+        action: (message: String) -> Unit,
+    ): List<MoviesDomain>? {
         return when (val response =
-            repository.getTopRatedMovies(topRatedPages)) {
+            repository.getTopRatedMovies(page)) {
             is Resources.Success -> {
-                topRatedPages++
-                topRatedMoviesList.addAll(response.data!!)
-                topRatedMoviesList
+                response.data
             }
             is Resources.Error -> {
                 action.invoke(response.message)

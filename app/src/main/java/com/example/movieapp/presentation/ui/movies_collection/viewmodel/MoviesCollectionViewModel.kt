@@ -8,6 +8,7 @@ import com.example.movieapp.domain.interactor.usecases.get_favourite_movies.GetF
 import com.example.movieapp.domain.interactor.usecases.get_movies.GetMoviesUseCase
 import com.example.movieapp.domain.model.MoviesDomain
 import com.example.movieapp.presentation.ui.movies_collection.movies_state.MoviesState
+import com.example.movieapp.util.Constants.STARTING_PAGE_INDEX
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
@@ -22,13 +23,13 @@ class MoviesCollectionViewModel(
     private val _moviesLiveData: MutableLiveData<List<MoviesDomain>?> = MutableLiveData()
     val moviesLiveData: LiveData<List<MoviesDomain>?> = _moviesLiveData
 
+    private val topRatedMoviesList = mutableListOf<MoviesDomain>()
+    private val popularMoviesList = mutableListOf<MoviesDomain>()
+
     var getMovieState: MoviesState = MoviesState.TopRatedMoviesState
-
+    var internetConnection: Boolean? = null
     var isFirstChecked = false
-
-    init {
-        getMovies(MoviesState.TopRatedMoviesState)
-    }
+    var page = STARTING_PAGE_INDEX
 
     fun getMovies(moviesState: MoviesState) {
         viewModelScope.launch(Dispatchers.IO) {
@@ -37,16 +38,37 @@ class MoviesCollectionViewModel(
                     _moviesLiveData.postValue(favMoviesUseCase.getFavouriteMovies())
                 }
                 is MoviesState.PopularMoviesState -> {
-                    _moviesLiveData.postValue(moviesUseCase.getPopularMovies {
-                        _errorLiveData.postValue(it)
-                    })
+                    getPopularMovies()
                 }
                 is MoviesState.TopRatedMoviesState -> {
-                    _moviesLiveData.postValue(moviesUseCase.getTopRatedMovies {
-                        _errorLiveData.postValue(it)
-                    })
+                    getTopRatedMovies()
                 }
             }
         }
+    }
+
+    private suspend fun getTopRatedMovies() {
+        val response = moviesUseCase.getTopRatedMovies(page) {
+            _errorLiveData.postValue(it)
+        }
+        page++
+        response?.let { topRatedMoviesList.addAll(it) }
+        _moviesLiveData.postValue(topRatedMoviesList)
+    }
+
+    private suspend fun getPopularMovies() {
+        val response = moviesUseCase.getPopularMovies(page) {
+            _errorLiveData.postValue(it)
+        }
+        page++
+        response?.let { popularMoviesList.addAll(it) }
+        _moviesLiveData.postValue(popularMoviesList)
+    }
+
+    fun clearMoviesListAndLiveData() {
+        _moviesLiveData.postValue(null)
+        popularMoviesList.clear()
+        topRatedMoviesList.clear()
+        page= STARTING_PAGE_INDEX
     }
 }

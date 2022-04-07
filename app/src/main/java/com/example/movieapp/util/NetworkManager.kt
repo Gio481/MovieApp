@@ -6,7 +6,6 @@ import android.net.Network
 import android.net.NetworkCapabilities
 import android.net.NetworkRequest
 import androidx.lifecycle.LiveData
-import com.example.movieapp.util.Constants.INTERNET_CHECKER_URL
 import java.net.URL
 
 class NetworkManager(context: Context) : LiveData<NetworkState?>() {
@@ -59,4 +58,7 @@ class NetworkManager(context: Context) : LiveData<NetworkState?>() {
         connectivityManager.registerNetworkCallback(networkRequest, callback)
     }
 
+    companion object {
+        private const val INTERNET_CHECKER_URL = "https://www.google.com/"
+    }
 }

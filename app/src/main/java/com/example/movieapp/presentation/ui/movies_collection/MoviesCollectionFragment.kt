@@ -2,7 +2,6 @@ package com.example.movieapp.presentation.ui.movies_collection
 
 import android.content.res.Configuration
 import android.os.Bundle
-import android.util.Log.d
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.core.view.isVisible
@@ -20,7 +19,6 @@ import com.example.movieapp.presentation.ui.movies_collection.adapter.OnScrollLi
 import com.example.movieapp.presentation.ui.movies_collection.movies_state.MoviesState
 import com.example.movieapp.presentation.ui.movies_collection.viewmodel.MoviesCollectionViewModel
 import com.example.movieapp.util.Constants.BUNDLE_KEY_FOR_MOVIE_DETAILS
-import com.example.movieapp.util.Constants.DATA_REFRESHING_TIME
 import com.example.movieapp.util.NetworkManager
 import com.example.movieapp.util.NetworkState
 import com.example.movieapp.util.extensions.dialog.createDialog
@@ -44,39 +42,39 @@ class MoviesCollectionFragment :
 
     private val moviesAdapter by lazy { MoviesAdapter(this) }
 
-    private var gridLayoutColumn = 2
-
-    private var internet: Boolean? = null
+    private var gridLayoutColumn = PORTRAIT_GRID_LAYOUT_COLUMN
 
     override fun onBindViewModel(viewModel: MoviesCollectionViewModel) {
-        if (!viewModel.isFirstChecked) {
-            binding.topRatedRadioButton.isChecked = true
-            viewModel.isFirstChecked = true
-        }
+        getDefaultMovies(viewModel)
         setUpRecyclerView(gridLayoutColumn, viewModel)
         observeMovies(viewModel)
         getMovies(viewModel)
         observeErrorLiveData(viewModel)
         setDataRefreshingListener(viewModel)
-        observeInternetConnection()
+        observeInternetConnection(viewModel)
     }
 
-    private fun observeInternetConnection() {
+    private fun getDefaultMovies(viewModel: MoviesCollectionViewModel) {
+        with(viewModel) {
+            if (!isFirstChecked) {
+                binding.topRatedRadioButton.isChecked = true
+                getMovies(MoviesState.TopRatedMoviesState)
+                isFirstChecked = true
+            }
+        }
+    }
+
+    private fun observeInternetConnection(viewModel: MoviesCollectionViewModel) {
         val networkManager = NetworkManager(requireContext())
         observer(networkManager) {
-
-        }
-        networkManager.observe(viewLifecycleOwner) {
             when (it) {
                 is NetworkState.Available -> {
-                    internet = true
-
+                    viewModel.internetConnection = true
                 }
                 is NetworkState.UnAvailable -> {
-                    internet = false
+                    viewModel.internetConnection = false
                     showToast(getString(R.string.internet_error_text))
                 }
-                else -> internet = null
             }
         }
     }
@@ -97,20 +95,24 @@ class MoviesCollectionFragment :
     }
 
     private fun getMovies(viewModel: MoviesCollectionViewModel) {
-        binding.movieStateRadioGroup.setOnCheckedChangeListener { _, i ->
-            when (i) {
-                R.id.topRatedRadioButton -> {
-                    viewModel.getMovieState = MoviesState.TopRatedMoviesState
-                    viewModel.getMovies(MoviesState.TopRatedMoviesState)
-                }
+        with(viewModel) {
+            binding.movieStateRadioGroup.setOnCheckedChangeListener { _, i ->
+                when (i) {
+                    R.id.topRatedRadioButton -> {
+                        clearMoviesListAndLiveData()
+                        getMovieState = MoviesState.TopRatedMoviesState
+                        getMovies(MoviesState.TopRatedMoviesState)
+                    }
 
-                R.id.popularRadioButton -> {
-                    viewModel.getMovieState = MoviesState.PopularMoviesState
-                    viewModel.getMovies(MoviesState.PopularMoviesState)
-                }
-                R.id.favoriteRadioButton -> {
-                    viewModel.getMovieState = MoviesState.FavouriteMoviesState
-                    viewModel.getMovies(MoviesState.FavouriteMoviesState)
+                    R.id.popularRadioButton -> {
+                        clearMoviesListAndLiveData()
+                        getMovieState = MoviesState.PopularMoviesState
+                        getMovies(MoviesState.PopularMoviesState)
+                    }
+                    R.id.favoriteRadioButton -> {
+                        getMovieState = MoviesState.FavouriteMoviesState
+                        getMovies(MoviesState.FavouriteMoviesState)
+                    }
                 }
             }
         }
@@ -121,8 +123,8 @@ class MoviesCollectionFragment :
         with(binding.moviesRecyclerView) {
             layoutManager = manager
             adapter = moviesAdapter
-            addOnScrollListener(OnScrollListener {
-                if (internet == false) {
+            addOnScrollListener(OnScrollListener(manager, MOVIES_PAGE_SIZE) {
+                if (viewModel.internetConnection == false) {
                     showDialog()
                 } else {
                     viewModel.getMovies(viewModel.getMovieState)
@@ -135,7 +137,10 @@ class MoviesCollectionFragment :
         with(binding.moviesRefreshLayout) {
             setOnRefreshListener {
                 viewLifecycleOwner.lifecycleScope.launch {
-                    viewModel.getMovies(viewModel.getMovieState)
+                    with(viewModel) {
+                        clearMoviesListAndLiveData()
+                        getMovies(getMovieState)
+                    }
                     delay(DATA_REFRESHING_TIME)
                     isRefreshing = false
                 }
@@ -147,9 +152,9 @@ class MoviesCollectionFragment :
         super.onCreate(savedInstanceState)
         gridLayoutColumn =
             if (requireActivity().resources.configuration.orientation == Configuration.ORIENTATION_PORTRAIT) {
-                2
+                PORTRAIT_GRID_LAYOUT_COLUMN
             } else {
-                3
+                LANDSCAPE_GRID_LAYOUT_COLUMN
             }
     }
 
@@ -171,5 +176,12 @@ class MoviesCollectionFragment :
 
     private fun bundle(block: Bundle.() -> Unit): Bundle {
         return Bundle().apply(block)
+    }
+
+    companion object {
+        private const val MOVIES_PAGE_SIZE = 20
+        private const val DATA_REFRESHING_TIME = 500L
+        private const val PORTRAIT_GRID_LAYOUT_COLUMN = 2
+        private const val LANDSCAPE_GRID_LAYOUT_COLUMN = 3
     }
 }
