@@ -7,7 +7,7 @@
     <string name="release_date">release date: </string>
     <string name="retry_button_text">Retry</string>
     <string name="error_text">something went wrong!</string>
-    <string name="load_data">❤️check internet connection ❤️</string>
+    <string name="check_internet_connection_text">❤️check internet connection ❤️</string>
     <string name="restored_internet_text">Internet connection has been restored</string>
     <string name="internet_error_text">Internet Connection Error</string>
 </resources>
