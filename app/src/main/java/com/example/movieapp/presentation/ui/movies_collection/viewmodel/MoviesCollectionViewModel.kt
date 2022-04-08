@@ -4,6 +4,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.example.movieapp.FlavorVersion
 import com.example.movieapp.domain.interactor.usecases.get_favourite_movies.GetFavouriteMoviesUseCase
 import com.example.movieapp.domain.interactor.usecases.get_movies.GetMoviesUseCase
 import com.example.movieapp.domain.model.MoviesDomain
@@ -15,7 +16,10 @@ import kotlinx.coroutines.launch
 class MoviesCollectionViewModel(
     private val moviesUseCase: GetMoviesUseCase,
     private val favMoviesUseCase: GetFavouriteMoviesUseCase,
+    private val flavorVersion: FlavorVersion,
 ) : ViewModel() {
+
+    val category = flavorVersion.category
 
     private val _errorLiveData: MutableLiveData<String?> = MutableLiveData()
     val errorLiveData: LiveData<String?> = _errorLiveData
@@ -69,6 +73,6 @@ class MoviesCollectionViewModel(
         _moviesLiveData.postValue(null)
         popularMoviesList.clear()
         topRatedMoviesList.clear()
-        page= STARTING_PAGE_INDEX
+        page = STARTING_PAGE_INDEX
     }
 }

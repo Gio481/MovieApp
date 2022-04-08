@@ -57,8 +57,13 @@ class MoviesCollectionFragment :
     private fun getDefaultMovies(viewModel: MoviesCollectionViewModel) {
         with(viewModel) {
             if (!isFirstChecked) {
-                binding.topRatedRadioButton.isChecked = true
-                getMovies(MoviesState.TopRatedMoviesState)
+                if (category == FLAVOR_TOP_RATED_VERSION) {
+                    binding.topRatedRadioButton.isChecked = true
+                    getMovies(MoviesState.TopRatedMoviesState)
+                } else {
+                    binding.popularRadioButton.isChecked = true
+                    getMovies(MoviesState.PopularMoviesState)
+                }
                 isFirstChecked = true
             }
         }
@@ -183,5 +188,6 @@ class MoviesCollectionFragment :
         private const val DATA_REFRESHING_TIME = 500L
         private const val PORTRAIT_GRID_LAYOUT_COLUMN = 2
         private const val LANDSCAPE_GRID_LAYOUT_COLUMN = 3
+        private const val FLAVOR_TOP_RATED_VERSION = "topRated"
     }
 }

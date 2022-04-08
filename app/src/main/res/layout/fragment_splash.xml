@@ -16,7 +16,7 @@
         android:layout_width="@dimen/dimen_150_dp"
         android:layout_height="@dimen/dimen_150_dp"
         android:scaleType="centerCrop"
-        android:src="@drawable/splash_logo"
+        android:src="@mipmap/ic_logo"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

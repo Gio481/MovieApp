@@ -25,6 +25,18 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
+
+    flavorDimensions "movies"
+    productFlavors {
+        TopRated {
+            dimension = "movies"
+            applicationIdSuffix = ".toprated"
+        }
+        Popular {
+            dimension = "movies"
+            applicationIdSuffix = ".popular"
+        }
+    }
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
