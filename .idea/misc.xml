@@ -3,6 +3,7 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Users/Giorgi.Beridze/AndroidStudioProjects/MovieApp/app/src/TopRated/res/layout/fragment_blank.xml" value="0.21403508771929824" />
         <entry key="..\:/Users/Giorgi.Beridze/AndroidStudioProjects/MovieApp/app/src/main/res/drawable-v24/ic_launcher_foreground.xml" value="0.1" />
         <entry key="..\:/Users/Giorgi.Beridze/AndroidStudioProjects/MovieApp/app/src/main/res/drawable/custom_dialog_background.xml" value="0.1" />
         <entry key="..\:/Users/Giorgi.Beridze/AndroidStudioProjects/MovieApp/app/src/main/res/drawable/favorite_movies_text_view_background.xml" value="0.152" />
@@ -30,7 +31,7 @@
         <entry key="..\:/Users/Giorgi.Beridze/AndroidStudioProjects/MovieApp/app/src/main/res/layout/fragment_movie_details.xml" value="0.1" />
         <entry key="..\:/Users/Giorgi.Beridze/AndroidStudioProjects/MovieApp/app/src/main/res/layout/fragment_movies.xml" value="0.185121107266436" />
         <entry key="..\:/Users/Giorgi.Beridze/AndroidStudioProjects/MovieApp/app/src/main/res/layout/fragment_movies_collection.xml" value="0.16" />
-        <entry key="..\:/Users/Giorgi.Beridze/AndroidStudioProjects/MovieApp/app/src/main/res/layout/fragment_splash.xml" value="0.1" />
+        <entry key="..\:/Users/Giorgi.Beridze/AndroidStudioProjects/MovieApp/app/src/main/res/layout/fragment_splash.xml" value="0.12" />
         <entry key="..\:/Users/Giorgi.Beridze/AndroidStudioProjects/MovieApp/app/src/main/res/layout/loader_adapert_layout.xml" value="0.1" />
         <entry key="..\:/Users/Giorgi.Beridze/AndroidStudioProjects/MovieApp/app/src/main/res/layout/loader_adapter_layout.xml" value="0.176" />
         <entry key="..\:/Users/Giorgi.Beridze/AndroidStudioProjects/MovieApp/app/src/main/res/layout/movie_item_layout.xml" value="0.1" />

@@ -57,8 +57,10 @@ class MoviesCollectionFragment :
     private fun getDefaultMovies(viewModel: MoviesCollectionViewModel) {
         with(viewModel) {
             if (!isFirstChecked) {
-                binding.topRatedRadioButton.isChecked = true
-                getMovies(MoviesState.TopRatedMoviesState)
+                with(binding) {
+                    getDefaultMovies({ popularRadioButton.isChecked = true },
+                        { topRatedRadioButton.isChecked = true })
+                }
                 isFirstChecked = true
             }
         }
