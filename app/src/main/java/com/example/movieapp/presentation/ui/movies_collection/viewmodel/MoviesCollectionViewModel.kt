@@ -4,10 +4,10 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.movieapp.FlavorVersion
 import com.example.movieapp.domain.interactor.usecases.get_favourite_movies.GetFavouriteMoviesUseCase
 import com.example.movieapp.domain.interactor.usecases.get_movies.GetMoviesUseCase
 import com.example.movieapp.domain.model.MoviesDomain
+import com.example.movieapp.presentation.ui.movies_collection.flavor_version.FlavorVersion
 import com.example.movieapp.presentation.ui.movies_collection.movies_state.MoviesState
 import com.example.movieapp.util.Constants.STARTING_PAGE_INDEX
 import kotlinx.coroutines.Dispatchers
@@ -18,8 +18,6 @@ class MoviesCollectionViewModel(
     private val favMoviesUseCase: GetFavouriteMoviesUseCase,
     private val flavorVersion: FlavorVersion,
 ) : ViewModel() {
-
-    val category = flavorVersion.category
 
     private val _errorLiveData: MutableLiveData<String?> = MutableLiveData()
     val errorLiveData: LiveData<String?> = _errorLiveData
@@ -34,6 +32,18 @@ class MoviesCollectionViewModel(
     var internetConnection: Boolean? = null
     var isFirstChecked = false
     var page = STARTING_PAGE_INDEX
+
+    fun getDefaultMovies(popularAction: () -> Unit, topRatedAction: () -> Unit) {
+        if (flavorVersion.category == FLAVOR_POPULAR_VERSION) {
+            getMovies(MoviesState.PopularMoviesState)
+            getMovieState = MoviesState.PopularMoviesState
+            popularAction()
+        } else {
+            getMovies(MoviesState.TopRatedMoviesState)
+            getMovieState = MoviesState.TopRatedMoviesState
+            topRatedAction()
+        }
+    }
 
     fun getMovies(moviesState: MoviesState) {
         viewModelScope.launch(Dispatchers.IO) {
@@ -74,5 +84,9 @@ class MoviesCollectionViewModel(
         popularMoviesList.clear()
         topRatedMoviesList.clear()
         page = STARTING_PAGE_INDEX
+    }
+
+    companion object {
+        private const val FLAVOR_POPULAR_VERSION = "popular"
     }
 }
