@@ -21,7 +21,7 @@ fun Dialog.setUpDialogLayout(binding: ViewBinding) {
     setContentView(binding.root)
 }
 
-fun Context.createDialog(text: String, positiveButton: () -> Unit) {
+fun Context.createDialog(text: String) {
     val dialog = Dialog(this)
     val dialogBinding = CustomDialogBinding.inflate(LayoutInflater.from(this))
     dialog.apply {
@@ -29,7 +29,6 @@ fun Context.createDialog(text: String, positiveButton: () -> Unit) {
         with(dialogBinding) {
             errorText.text = text
             loadDataButton.setOnClickListener {
-                positiveButton.invoke()
                 dismiss()
             }
         }

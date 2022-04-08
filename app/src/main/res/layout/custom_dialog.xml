@@ -41,7 +41,7 @@
         android:layout_width="match_parent"
         android:layout_height="@dimen/dimen_60_dp"
         android:background="@android:color/transparent"
-        android:text="@string/load_data"
+        android:text="@string/check_internet_connection_text"
         android:textAllCaps="false"
         android:textColor="@color/color_red"
         android:textSize="@dimen/dimen_20_sp"

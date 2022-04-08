@@ -6,10 +6,9 @@ import android.net.Network
 import android.net.NetworkCapabilities
 import android.net.NetworkRequest
 import androidx.lifecycle.LiveData
-import com.example.movieapp.util.Constants.INTERNET_CHECKER_URL
 import java.net.URL
 
-class Network(context: Context) : LiveData<NetworkState>() {
+class NetworkManager(context: Context) : LiveData<NetworkState?>() {
     private lateinit var callback: ConnectivityManager.NetworkCallback
     private val network: MutableSet<Network> = mutableSetOf()
     private val connectivityManager =
@@ -36,7 +35,7 @@ class Network(context: Context) : LiveData<NetworkState>() {
                 if (hasInternetConnectivityManager == true) {
                     try {
                         network.openConnection(URL(INTERNET_CHECKER_URL)).connect()
-                        this@Network.network.add(network)
+                        this@NetworkManager.network.add(network)
                         validNetworkChecker()
                     } catch (e: Exception) {
                         validNetworkChecker()
@@ -59,4 +58,7 @@ class Network(context: Context) : LiveData<NetworkState>() {
         connectivityManager.registerNetworkCallback(networkRequest, callback)
     }
 
+    companion object {
+        private const val INTERNET_CHECKER_URL = "https://www.google.com/"
+    }
 }

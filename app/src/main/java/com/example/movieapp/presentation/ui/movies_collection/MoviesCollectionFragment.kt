@@ -7,23 +7,22 @@ import android.view.ViewGroup
 import androidx.core.view.isVisible
 import androidx.fragment.app.DialogFragment.STYLE_NORMAL
 import androidx.lifecycle.lifecycleScope
-import androidx.paging.PagingData
 import androidx.recyclerview.widget.GridLayoutManager
 import com.example.movieapp.R
 import com.example.movieapp.databinding.FragmentMoviesCollectionBinding
 import com.example.movieapp.domain.model.MoviesDomain
 import com.example.movieapp.presentation.base.BaseFragment
 import com.example.movieapp.presentation.ui.movie_details.MovieDetailFragment
-import com.example.movieapp.presentation.ui.movies_collection.adapter.LoaderStateAdapter
 import com.example.movieapp.presentation.ui.movies_collection.adapter.MoviesAdapter
 import com.example.movieapp.presentation.ui.movies_collection.adapter.OnItemClickListener
+import com.example.movieapp.presentation.ui.movies_collection.adapter.OnScrollListener
 import com.example.movieapp.presentation.ui.movies_collection.movies_state.MoviesState
 import com.example.movieapp.presentation.ui.movies_collection.viewmodel.MoviesCollectionViewModel
 import com.example.movieapp.util.Constants.BUNDLE_KEY_FOR_MOVIE_DETAILS
-import com.example.movieapp.util.Constants.DATA_REFRESHING_TIME
-import com.example.movieapp.util.Network
+import com.example.movieapp.util.NetworkManager
 import com.example.movieapp.util.NetworkState
 import com.example.movieapp.util.extensions.dialog.createDialog
+import com.example.movieapp.util.extensions.fragment.observer
 import com.example.movieapp.util.extensions.fragment.showToast
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
@@ -42,99 +41,106 @@ class MoviesCollectionFragment :
     private val bottomSheetFragment by lazy { MovieDetailFragment() }
 
     private val moviesAdapter by lazy { MoviesAdapter(this) }
-    private val loadStateAdapter by lazy {
-        LoaderStateAdapter {
-            showDialog(it)
+
+    private var gridLayoutColumn = PORTRAIT_GRID_LAYOUT_COLUMN
+
+    override fun onBindViewModel(viewModel: MoviesCollectionViewModel) {
+        getDefaultMovies(viewModel)
+        setUpRecyclerView(gridLayoutColumn, viewModel)
+        observeMovies(viewModel)
+        getMovies(viewModel)
+        observeErrorLiveData(viewModel)
+        setDataRefreshingListener(viewModel)
+        observeInternetConnection(viewModel)
+    }
+
+    private fun getDefaultMovies(viewModel: MoviesCollectionViewModel) {
+        with(viewModel) {
+            if (!isFirstChecked) {
+                binding.topRatedRadioButton.isChecked = true
+                getMovies(MoviesState.TopRatedMoviesState)
+                isFirstChecked = true
+            }
         }
     }
 
-    private var gridLayoutColumn = 2
-
-    override fun onBindViewModel(viewModel: MoviesCollectionViewModel) {
-        setUpRecyclerView(gridLayoutColumn)
-        observeMovies(viewModel)
-        observeInternetConnection(viewModel)
-        binding.topRatedRadioButton.isChecked = true
-        observeErrorLiveData(viewModel)
-        getMovies(viewModel)
-        setDataRefreshingListener(viewModel)
-    }
-
     private fun observeInternetConnection(viewModel: MoviesCollectionViewModel) {
-        val networkObserver = Network(requireContext())
-        networkObserver.observe(viewLifecycleOwner) {
+        val networkManager = NetworkManager(requireContext())
+        observer(networkManager) {
             when (it) {
                 is NetworkState.Available -> {
-                    if (viewModel.isShownInternetAvailability) {
-                        showToast(getString(R.string.restored_internet_text))
-                        moviesAdapter.retry()
-                        viewModel.isShownInternetAvailability = false
-                    }
+                    viewModel.internetConnection = true
                 }
                 is NetworkState.UnAvailable -> {
-                    viewModel.isShownInternetAvailability = true
+                    viewModel.internetConnection = false
                     showToast(getString(R.string.internet_error_text))
                 }
             }
         }
     }
 
+    private fun observeMovies(viewModel: MoviesCollectionViewModel) {
+        isProgressBarVisible(true)
+        observer(viewModel.moviesLiveData) {
+            moviesAdapter.loadData(it.toMutableList())
+            isProgressBarVisible(false)
+        }
+    }
 
     private fun observeErrorLiveData(viewModel: MoviesCollectionViewModel) {
-        viewModel.errorLiveData.observe(viewLifecycleOwner) {
+        observer(viewModel.errorLiveData) {
             isProgressBarVisible(false)
-            if (viewModel.isSubmittedEmptyData) {
-                submitPagingData(PagingData.empty())
-            }
             showToast(it)
         }
     }
 
-    private fun observeMovies(
-        viewModel: MoviesCollectionViewModel,
-        moviesState: MoviesState = MoviesState.TopRatedMoviesState,
-    ) {
-        isProgressBarVisible(true)
-        viewLifecycleOwner.lifecycleScope.launch {
-            viewModel.getMovies(moviesState)?.observe(viewLifecycleOwner) {
-                submitPagingData(it)
-            }
-        }
-    }
-
     private fun getMovies(viewModel: MoviesCollectionViewModel) {
-        binding.movieStateRadioGroup.setOnCheckedChangeListener { _, i ->
-            when (i) {
-                R.id.topRatedRadioButton -> {
-                    viewModel.isSubmittedEmptyData = true
-                    observeMovies(viewModel, MoviesState.TopRatedMoviesState)
-                }
+        with(viewModel) {
+            binding.movieStateRadioGroup.setOnCheckedChangeListener { _, i ->
+                when (i) {
+                    R.id.topRatedRadioButton -> {
+                        clearMoviesListAndLiveData()
+                        getMovieState = MoviesState.TopRatedMoviesState
+                        getMovies(MoviesState.TopRatedMoviesState)
+                    }
 
-                R.id.popularRadioButton -> {
-                    viewModel.isSubmittedEmptyData = true
-                    observeMovies(viewModel, MoviesState.PopularMoviesState)
-                }
-                R.id.favoriteRadioButton -> {
-                    viewModel.isSubmittedEmptyData = true
-                    observeMovies(viewModel, MoviesState.FavouriteMoviesState)
+                    R.id.popularRadioButton -> {
+                        clearMoviesListAndLiveData()
+                        getMovieState = MoviesState.PopularMoviesState
+                        getMovies(MoviesState.PopularMoviesState)
+                    }
+                    R.id.favoriteRadioButton -> {
+                        getMovieState = MoviesState.FavouriteMoviesState
+                        getMovies(MoviesState.FavouriteMoviesState)
+                    }
                 }
             }
         }
     }
 
-    private fun setUpRecyclerView(gridLayoutColumn: Int) {
+    private fun setUpRecyclerView(gridLayoutColumn: Int, viewModel: MoviesCollectionViewModel) {
+        val manager = GridLayoutManager(requireContext(), gridLayoutColumn)
         with(binding.moviesRecyclerView) {
-            layoutManager = GridLayoutManager(requireContext(), gridLayoutColumn)
-            adapter = moviesAdapter.withLoadStateFooter(loadStateAdapter)
+            layoutManager = manager
+            adapter = moviesAdapter
+            addOnScrollListener(OnScrollListener(manager, MOVIES_PAGE_SIZE) {
+                if (viewModel.internetConnection == false) {
+                    showDialog()
+                } else {
+                    viewModel.getMovies(viewModel.getMovieState)
+                }
+            })
         }
     }
 
     private fun setDataRefreshingListener(viewModel: MoviesCollectionViewModel) {
         with(binding.moviesRefreshLayout) {
             setOnRefreshListener {
-                viewModel.isSubmittedEmptyData = false
                 viewLifecycleOwner.lifecycleScope.launch {
-                    observeMovies(viewModel, viewModel.getMovieState)
+                    with(viewModel) {
+                        clearMoviesListAndLiveData()
+                        getMovies(getMovieState)
+                    }
                     delay(DATA_REFRESHING_TIME)
                     isRefreshing = false
                 }
@@ -146,9 +152,9 @@ class MoviesCollectionFragment :
         super.onCreate(savedInstanceState)
         gridLayoutColumn =
             if (requireActivity().resources.configuration.orientation == Configuration.ORIENTATION_PORTRAIT) {
-                2
+                PORTRAIT_GRID_LAYOUT_COLUMN
             } else {
-                3
+                LANDSCAPE_GRID_LAYOUT_COLUMN
             }
     }
 
@@ -156,17 +162,8 @@ class MoviesCollectionFragment :
         binding.progressBar.isVisible = visibility
     }
 
-    private fun submitPagingData(data: PagingData<MoviesDomain>) {
-        viewLifecycleOwner.lifecycleScope.launch {
-            isProgressBarVisible(false)
-            moviesAdapter.submitData(data)
-        }
-    }
-
-    private fun showDialog(text: String, action: () -> Unit = { moviesAdapter.retry() }) {
-        requireContext().createDialog(text) {
-            action.invoke()
-        }
+    private fun showDialog() {
+        requireContext().createDialog(getString(R.string.internet_error_text))
     }
 
     override fun onItemClick(movie: MoviesDomain) {
@@ -179,5 +176,12 @@ class MoviesCollectionFragment :
 
     private fun bundle(block: Bundle.() -> Unit): Bundle {
         return Bundle().apply(block)
+    }
+
+    companion object {
+        private const val MOVIES_PAGE_SIZE = 20
+        private const val DATA_REFRESHING_TIME = 500L
+        private const val PORTRAIT_GRID_LAYOUT_COLUMN = 2
+        private const val LANDSCAPE_GRID_LAYOUT_COLUMN = 3
     }
 }

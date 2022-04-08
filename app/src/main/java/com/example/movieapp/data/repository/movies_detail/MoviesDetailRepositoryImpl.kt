@@ -10,8 +10,8 @@ class MoviesDetailRepositoryImpl(
     private val dataMapper: DataMapperImpl,
 ) : MoviesDetailRepository {
 
-    override suspend fun getAllMoviesID(): List<String> {
-        return moviesDao.getAllMoviesID()
+    override suspend fun getAllMoviesPoster(): List<String> {
+        return moviesDao.getAllMoviesPoster()
     }
 
     override suspend fun insertMovie(movie: MoviesDomain) {
