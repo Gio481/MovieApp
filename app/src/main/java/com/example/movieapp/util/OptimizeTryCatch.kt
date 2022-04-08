@@ -1,18 +1,16 @@
 package com.example.movieapp.util
 
-import com.example.movieapp.data.datasource.remote.dto.MoviesResponseDTO
-import com.example.movieapp.data.mapper.DataMapperImpl
-import com.example.movieapp.domain.model.MoviesDomain
+import com.example.movieapp.data.mapper.DtoMapper
 import retrofit2.Response
 
-inline fun dataFetcher(
-    dataMapperImpl: DataMapperImpl,
-    apiResponse: () -> Response<MoviesResponseDTO>,
-): Resources<List<MoviesDomain>> {
+inline fun <DTO, DOMAIN> dataFetcher(
+    dtoMapper: DtoMapper<DTO, DOMAIN>,
+    apiResponse: () -> Response<DTO>,
+): Resources<List<DOMAIN>> {
     return try {
         val response = apiResponse.invoke()
         if (response.isSuccessful) {
-            Resources.Success(dataMapperImpl.dtoToDomain(response.body()!!))
+            Resources.Success(dtoMapper.dtoToDomain(response.body()!!))
         } else {
             Resources.Error(response.message())
         }

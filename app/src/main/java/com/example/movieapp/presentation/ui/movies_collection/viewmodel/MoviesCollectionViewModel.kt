@@ -31,7 +31,7 @@ class MoviesCollectionViewModel(
     var getMovieState: MoviesState = MoviesState.TopRatedMoviesState
     var internetConnection: Boolean? = null
     var isFirstChecked = false
-    var page = STARTING_PAGE_INDEX
+    private var page = STARTING_PAGE_INDEX
 
     fun getDefaultMovies(popularAction: () -> Unit, topRatedAction: () -> Unit) {
         if (flavorVersion.category == FLAVOR_POPULAR_VERSION) {
@@ -84,6 +84,10 @@ class MoviesCollectionViewModel(
         popularMoviesList.clear()
         topRatedMoviesList.clear()
         page = STARTING_PAGE_INDEX
+    }
+
+    fun clearErrorLiveData(){
+        _errorLiveData.postValue(null)
     }
 
     companion object {

@@ -72,6 +72,7 @@ class MoviesCollectionFragment :
             when (it) {
                 is NetworkState.Available -> {
                     viewModel.internetConnection = true
+                    viewModel.clearErrorLiveData()
                 }
                 is NetworkState.UnAvailable -> {
                     viewModel.internetConnection = false
