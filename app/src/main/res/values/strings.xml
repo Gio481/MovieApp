@@ -1,3 +1,13 @@
 <resources>
     <string name="app_name">MovieApp</string>
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="top_rated_movie">Top rated</string>
+    <string name="popular_movie">Popular</string>
+    <string name="favorite_movie">Favorite</string>
+    <string name="release_date">release date: </string>
+    <string name="retry_button_text">Retry</string>
+    <string name="error_text">something went wrong!</string>
+    <string name="check_internet_connection_text">❤️check internet connection ❤️</string>
+    <string name="restored_internet_text">Internet connection has been restored</string>
+    <string name="internet_error_text">Internet Connection Error</string>
 </resources>
